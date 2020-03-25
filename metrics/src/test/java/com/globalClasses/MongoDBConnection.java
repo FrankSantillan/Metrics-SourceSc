@@ -19,6 +19,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -54,6 +55,8 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Projections;
+
+import io.cucumber.cucumberexpressions.TypeReference;
 
 public class MongoDBConnection {
 	private static MongoClient mClient;
@@ -444,8 +447,40 @@ public class MongoDBConnection {
     	
         return ban;  
     }
+	
+	public boolean compareHP(String collection, String id, JSONObject object) {
+    	boolean ban = false;
+    	MongoCollection<Document> coll = mDataBase.getCollection(collection);	
+    	FindIterable<Document> findIterable = coll.find(Filters.eq("_id", new ObjectId(id)));
+    	System.out.println("i am here "+id);
+    	for (Document document : findIterable) {
+    		//System.out.println("----------- Result:\n\t "+ document.toJson());
+    		JSONObject obj = new JSONObject(document.toJson());
+    		ban = compareHPJson(obj,object );
+    	}
+    	
+    	return ban;
+	}
+	
+	public boolean compareHPJson(JSONObject objectDB, JSONObject object) {
+		boolean ban = false;
+		System.out.println(objectDB.get("_id"));
+		System.out.println(objectDB.get("_class"));
+		objectDB.remove("_id");
+		objectDB.remove("_class");
+		System.out.println("\t\n1"+objectDB);
+		System.out.println("\t\n2"+object);
+		
+		if(objectDB.toString().equals(object.toString())) {
+			System.out.println("Iguales =)");
+			ban = true;
+		}else {
+			System.out.println("diferentes  =(");
+		}
 
-    public boolean executeSelectByFields(String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
+		return ban;
+	}
+	public boolean executeSelectByFields(String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
     	boolean ban = false;
     	MongoCollection<Document> coll = mDataBase.getCollection(collection);	
     	FindIterable<Document> findIterable = coll.find(Filters.eq("_id", new ObjectId(id)));
@@ -510,6 +545,21 @@ public class MongoDBConnection {
     }
     
     
+    public boolean executeGET(String collection, String id, JSONObject object) {
+    	boolean ban = false;
+    	MongoCollection<Document> coll = mDataBase.getCollection(collection);	
+    	FindIterable<Document> findIterable = coll.find(Filters.eq("_id", new ObjectId(id)));
+    	
+    	for (Document document : findIterable) {
+    		System.out.println("----------- Result: "+ document.toJson());
+    		
+    		
+    		if(document.getString("type").equals(object.getString("type"))  && document.getString("evaluator_id").equals(object.getString("evaluator_id")) ) {
+    			ban = true;
+    		}
+        }
+        return ban;  
+    }
     public boolean executeSelectENull(String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
     	boolean ban = false;
     	MongoCollection<Document> coll = mDataBase.getCollection(collection);	

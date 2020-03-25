@@ -20,6 +20,10 @@ public class RandomTools{
 		return numberPhone;
 	}
 	
+	public long generateNumeric() {		
+		return (long)(Math.random()*(9999999-0000000+1)+0000000);
+	}
+	
 	public String generateNumberPhoneRandomStringOL() {
 		String numberPhone;
 		String lada = "312";

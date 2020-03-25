@@ -138,6 +138,34 @@ public class MongoDBUtils {
 	       return bool;
 	   }
 	   
+	   public static boolean compareHP(String env, String mDataBase, String collection, String id, JSONObject object) {
+	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	       boolean bool;
+	       try {
+	    	   bool = db.compareHP(collection, id, object);	    	   
+	       } catch(Exception var9) {
+	           var9.printStackTrace();
+	           bool = false;
+	       } finally {
+	           db.close();    
+	       }
+	       return bool;
+	   }
+	   
+	   public static boolean ExecuteGet(String env, String mDataBase, String collection, String id, JSONObject object) {
+	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	       boolean bool;
+	       try {
+	    	   bool = db.executeGET(collection, id, object);	    	   
+	       } catch(Exception var9) {
+	           var9.printStackTrace();
+	           bool = false;
+	       } finally {
+	           db.close();    
+	       }
+	       return bool;
+	   }
+	   
 	   public static boolean executeSelectENull(String env, String mDataBase, String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
 	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
 	       boolean bool;
