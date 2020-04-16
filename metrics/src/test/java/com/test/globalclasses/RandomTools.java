@@ -1,4 +1,4 @@
-package com.globalClasses;
+package com.test.globalclasses;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class RandomTools{
 	}
 	
 	public String randomFirstNameOL() {
-		String firstName = faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName()+faker.name().firstName();
+		String firstName = faker.name().firstName()+faker.name().firstName()+faker.name().firstName();
 		return firstName;
 	}
 	
@@ -79,17 +79,7 @@ public class RandomTools{
 		return specialCharacters;
 	}
 	
-	public String randomPokemon() {
-		return faker.pokemon().name();
-	}
-	
-	public String randomHacker() {
-		return faker.hacker().noun();
-	}
 	
 	
-	public int randomDays() {
-		return (int)(Math.random()*(30-0+1)+0);
-	}
 	
 }

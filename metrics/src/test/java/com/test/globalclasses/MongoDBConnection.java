@@ -1,4 +1,4 @@
-package com.globalClasses;
+package com.test.globalclasses;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Projections.excludeId;
@@ -12,13 +12,8 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.file.DirectoryStream.Filter;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -49,6 +44,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
@@ -69,7 +65,7 @@ public class MongoDBConnection {
         Properties prop = new Properties();
         String propFileName = "config.properties";
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        
+
         try {
             if(inputStream != null) {
                 prop.load(inputStream);
@@ -79,12 +75,41 @@ public class MongoDBConnection {
             String uriString = prop.getProperty(env + "." + db);
             getMongoClient(uriString);
             mDataBase = getDB(db);
-            System.out.println("Connection successful");
         } catch(Exception e) {
             e.printStackTrace();
             System.out.println("Failed to make connection!");
         }
     }
+    
+    public String executeSelectSingle(String query, String coll) {
+        String value = "1212323123123";
+        if(query.matches("select(.*?)from(.*?)")) {
+            parseQuery(query);
+            System.out.println(query + "	22222222222222222222222222222222222222222222222222222222222222222222");
+ 
+        } else {
+            parseQuery2(query);
+            System.out.println(query + " 1111111111111111111111111111111111111111111111111111111111111111111111");
+        }
+        System.out.println(coll + "  9999999999999999999999999999999999999999999999999999999999999999999999");
+        //MongoCollection<Document> collection = mDataBase.getCollection(this.collection);
+        MongoCollection<Document> collection = mDataBase.getCollection(coll);
+        //DBCursor cursor = collection.find(eq(query, query));
+        System.out.println(mDataBase.getCollection(this.collection)+ "	6666666666666666666666666666666666");
+        System.out.println(collection + "	888888888888888888888888888888888888888888");
+        List<String> fields = Arrays.asList(this.fields.split("\\s*,\\s*"));
+        System.out.println(fields + " holaaaaaaaaaaaaaaaaaaaaaaa");
+        hasFilters = filters.isEmpty();
+        System.out.println("00000000000000000000000" + elmMatchFilters + elmMatch + hasFilters);
+        hasElemMatch = elmMatchFilters.isEmpty();
+        System.out.println(hasElemMatch + "	5555555555555555555555555555555555555555555555555555");
+        Document doc = (hasFilters ? hasElemMatch ? collection.find() : collection.find(Projections.elemMatch(elmMatch, Filters.and(elmMatchFilters))) : collection.find(Filters.and(filters))).projection(fields(include(fields))).first();
+        System.out.println(value + doc + "	4444444444444444444444444444444444444" + collection.find(Projections.elemMatch(elmMatch, Filters.and(elmMatchFilters))));
+        value = doc.get(fields).toString();
+        System.out.println("hola1111111111111111111111111111111" + value);
+        return value;
+    }
+
 
     private MongoClient getMongoClient(String uriString) {
         if(mClient == null) {
@@ -364,6 +389,8 @@ public class MongoDBConnection {
 
     public String executeRandomSelect(String collection, String field) {
     	String randomResult = "";
+    	System.out.println("------------field" + field);
+    	System.out.println("------------collection" + collection);
         MongoCollection<Document> coll = mDataBase.getCollection(collection);
         //MongoCollection<Document> coll = mDataBase.getCollection(this.collection);
         AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
@@ -376,6 +403,21 @@ public class MongoDBConnection {
         return randomResult;
     }
 
+    public String executeRandomSelectID(String collection, String field) {
+    	String randomResult = "";
+    	System.out.println("------------field" + field);
+    	System.out.println("------------collection" + collection);
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        //MongoCollection<Document> coll = mDataBase.getCollection(this.collection);
+        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+                
+        for(Document dbObject : output) {
+            if(dbObject.containsKey(field)) {
+                randomResult = dbObject.get(field).toString();
+            }
+        }
+        return randomResult;
+    }
     Block<Document> printBlock = new Block<Document>() {
         @Override
         public void  apply(final Document document) {
@@ -385,179 +427,41 @@ public class MongoDBConnection {
         }
     };
     
-
-	public boolean compareNulls(String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
-    	boolean ban = false;
-    	MongoCollection<Document> coll = mDataBase.getCollection(collection);	
-    	FindIterable<Document> findIterable = coll.find(Filters.eq("_id", new ObjectId(id)));
-
-    	for (Document document : findIterable) {
-    		System.out.println("----------- Result:\n\t "+ document.toJson());
-    		System.out.println(document.getString("name"));
-    		System.out.println(document.getString("technology"));
-    		System.out.println("name "+ name);
-    		System.out.println("tech "+tech);
-    		System.out.println("startDate "+startDate);
-    		System.out.println("endDate "+endDate);
-    		
-    		
-    		Date  sDate = document.getDate("start_date");
-    		ZoneId defaultZoneId = ZoneId.systemDefault();
-    		Instant instant = sDate.toInstant();
-    		LocalDate s_Date = instant.atZone(defaultZoneId).toLocalDate().plusDays(1);
-    		
-    		System.out.println("-- Sdate "+s_Date);
-    		
-    		Date  eDate = document.getDate("end_date");
-    		Instant instant2 = eDate.toInstant();
-    		LocalDate e_Date = instant2.atZone(defaultZoneId).toLocalDate().plusDays(1);
-    		
-    		System.out.println("-- Sdate "+e_Date);
-			if (name == null) {
-				if(document.getString("name") == null) {
-					ban = true;
-				}else {
-					if(tech.equals(document.getString("technology"))
-		    				&& active == document.getBoolean("active") && isbacklog == document.getBoolean("is_backlog") 
-		    				&& startDate.equals(s_Date) && endDate.equals(e_Date)) {
-		    			ban = true;
-		    		}
-				}
-							
-			}else {
-				if(tech == null && document.getString("technology")==null) {
-					if(name.equals(document.getString("name"))
-		    				&& active == document.getBoolean("active") && isbacklog == document.getBoolean("is_backlog") 
-		    				&& startDate.equals(s_Date) && endDate.equals(e_Date)) {
-		    			ban = true;
-		    		}		
-				}else {
-					if(name.equals(document.getString("name")) && tech.equals(document.getString("technology"))
-		    				&& active == document.getBoolean("active") && isbacklog == document.getBoolean("is_backlog") 
-		    				&& startDate.equals(s_Date) && endDate.equals(e_Date)) {
-		    			ban = true;
-		    		}
-				}
-			}
-
-        }
-    	
-        return ban;  
-    }
-
-    public boolean executeSelectByFields(String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
-    	boolean ban = false;
-    	MongoCollection<Document> coll = mDataBase.getCollection(collection);	
-    	FindIterable<Document> findIterable = coll.find(Filters.eq("_id", new ObjectId(id)));
-
-    	for (Document document : findIterable) {
-    		System.out.println("----------- Result:\n\t "+ document.toJson());
-    		
-    		Date  sDate = document.getDate("start_date");
-    		ZoneId defaultZoneId = ZoneId.systemDefault();
-    		Instant instant = sDate.toInstant();
-    		LocalDate s_Date = instant.atZone(defaultZoneId).toLocalDate().plusDays(1);
-    		
-
-    		Date  eDate = document.getDate("end_date");
-    		Instant instant2 = eDate.toInstant();
-    		LocalDate e_Date = instant2.atZone(defaultZoneId).toLocalDate().plusDays(1);
-    		
-    		System.out.println("\n\tstartDate "+startDate);
-			System.out.println("\n\ts_Date "+s_Date);
-    		
-			System.out.println("\n\tendDate "+endDate);
-			System.out.println("\n\te_Date "+e_Date);
-    		if(startDate == null) {
-    			startDate = LocalDate.now();
-    			System.out.println("\n\t enviado "+startDate);
-    			System.out.println("\n\t s_date "+s_Date);
-    			s_Date = s_Date.minusDays(1);
-    			System.out.println("\n\t s_date -1  "+s_Date);
-    		}
-    		
-    		
-    		if (name == null && document.getString("name") == null) {
-				if(tech.equals(document.getString("technology"))
-	    				&& active == document.getBoolean("active") && isbacklog == document.getBoolean("is_backlog") 
-	    				&& startDate.equals(s_Date) && endDate.equals(e_Date)) {
-	    			ban = true;
-	    		}			
-			}else {
-				if(tech == null && document.getString("technology")==null) {
-					if(name.equals(document.getString("name"))
-		    				&& active == document.getBoolean("active") && isbacklog == document.getBoolean("is_backlog") 
-		    				&& startDate.equals(s_Date) && endDate.equals(e_Date)) {
-		    			ban = true;
-		    		}		
-				}else {
-					if(name.equals(document.getString("name")) && tech.equals(document.getString("technology"))
-		    				&& active == document.getBoolean("active") && isbacklog == document.getBoolean("is_backlog") 
-		    				&& startDate.equals(s_Date) && endDate.equals(e_Date)) {
-		    			ban = true;
-		    		}
-				}
-			}
-    		/*
-    		if(name.equals(document.getString("name")) && tech.equals(document.getString("technology"))
-    				&& active == document.getBoolean("active") && isbacklog == document.getBoolean("is_backlog") 
-    				&& startDate.equals(s_Date) && endDate.equals(e_Date)) {
-    			ban = true;
-    		}*/
-        }
-   	
-        return ban;  
-    }
-    
-    
-    public boolean executeSelectENull(String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
-    	boolean ban = false;
-    	MongoCollection<Document> coll = mDataBase.getCollection(collection);	
-    	FindIterable<Document> findIterable = coll.find(Filters.eq("_id", new ObjectId(id)));
-
-    	for (Document document : findIterable) {
-    		System.out.println("----------- Result:\n\t "+ document.toJson());
-    		Date  sDate = document.getDate("start_date");
-    		ZoneId defaultZoneId = ZoneId.systemDefault();
-    		Instant instant = sDate.toInstant();
-    		LocalDate s_Date = instant.atZone(defaultZoneId).toLocalDate().plusDays(1);
-    		
-    		if(document.getDate("end_date") != null) {
-    			Date  eDate = document.getDate("end_date");
-	    		Instant instant2 = eDate.toInstant();
-	    		LocalDate e_Date = instant2.atZone(defaultZoneId).toLocalDate().plusDays(1);
-	    		
-	    		System.out.println("\n\t into if ---------------"+startDate);
-				System.out.println("\n\t "+s_Date);
-    		}
-    		if(startDate == null) {
-    			startDate = LocalDate.now();
-    			System.out.println("\n\t enviado "+startDate);
-    			System.out.println("\n\t s_date "+s_Date);
-    			s_Date = s_Date.minusDays(1);
-    			System.out.println("\n\t s_date -1  "+s_Date);
-    		}
-    		
-    		if ( endDate == null && document.getDate("end_date") == null) {
-    			if(name.equals(document.getString("name")) && tech.equals(document.getString("technology"))
-        				&& active == document.getBoolean("active") && isbacklog == document.getBoolean("is_backlog")) {
-        			ban = true;
-        		}
-    		}
-        }			
-        return ban;  
-    }
-
-    public boolean executeSelectByFields2(String collection, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
+    public boolean executeSelectByFields(String collection, String role) {
     	boolean ban = false;
     	System.out.println("------------Collection selected to search : " + collection);
     	MongoCollection<Document> coll = mDataBase.getCollection(collection);	
-    	FindIterable<Document> findIterable = coll.find(Document.parse("{name : '"+name+"' , technology: '"+tech+"' }"));
+    	//busca todos los documentos 
+    	//FindIterable<Document> findIterable = coll.find(new Document());
+    	//busca con filtros
+    	//FindIterable<Document> findIterable = coll.find(new Document("firstName", "Mike"));
+    	FindIterable<Document> findIterable = coll.find(Document.parse("{role: '" + role +"'}"));
+
     	
     	for (Document document : findIterable) {
     		ban = true;
     		System.out.println("----------- Result: "+ document.toJson());
         }
+    	//findIterable.forEach(printBlock);
+        return ban;  
+    }
+    
+    public boolean executeSelectByFields2(String collection, String firstName, String lastName, String phone) {
+    	boolean ban = false;
+    	System.out.println("------------Collection selected to search : " + collection);
+    	MongoCollection<Document> coll = mDataBase.getCollection(collection);	
+    	//busca todos los documentos 
+    	//FindIterable<Document> findIterable = coll.find(new Document());
+    	//busca con filtros
+    	//FindIterable<Document> findIterable = coll.find(new Document("firstName", "Mike"));
+    	FindIterable<Document> findIterable = coll.find(Document.parse("{firstName : '"+firstName+"' , lastName: '"+lastName+"' , phone:'"+phone+"'}"));
+
+
+    	for (Document document : findIterable) {
+    		ban = true;
+    		System.out.println("----------- Result: "+ document.toJson());
+        }
+    	//findIterable.forEach(printBlock);
         return ban;  
     }
     
@@ -572,7 +476,7 @@ public class MongoDBConnection {
     	//busca con filtros
     	//FindIterable<Document> findIterable = coll.find(new Document("firstName", "Mike"));
     	FindIterable<Document> findIterable = coll.find(Document.parse("{_id : '"+id+"' }"));
-    	findIterable.forEach(printBlock);
+
     	
     	for (Document document : findIterable) {
     		ban = true;
@@ -589,6 +493,55 @@ public class MongoDBConnection {
         }
         
     }
+    
+    public JSONArray executeQuerySelect(String collection, String field, String filter) {
+        JSONObject json = new JSONObject();
+        JSONArray resultJ = new JSONArray();
+        
+        System.out.println("------------field" + field);
+        System.out.println("------------collection" + collection);
+        
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+        
+        System.out.println("----- for start  " );
+        System.out.println("_______________________________________________");
+       try (MongoCursor<Document> cursor = coll.find(Filters.eq(field, filter)).iterator()){
+    	   while(cursor.hasNext()) {
+    		   resultJ.put(json = new JSONObject(cursor.next().toJson()));
+    		   System.out.println(resultJ);
+    	    }
+       }
+            return resultJ;
+    }
+    
+    public JSONArray executeQuerySelectID(String collection, String field, String filter) {
+        JSONObject json = new JSONObject();
+        JSONArray resultJ = new JSONArray();
+
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+       try (MongoCursor<Document> cursor = coll.find(Filters.eq(field, new ObjectId(filter))).iterator()){
+    	   while(cursor.hasNext()) {
+    		   resultJ.put(json = new JSONObject(cursor.next().toJson()));
+    	    }
+       }
+            return resultJ;
+    }
+    
+    
+	   public String executeRandomSelectD(String collection, String field1, String field2, String field3, String field4, String field5, String field6, String field7) {
+	        String randomResult = "";
+	        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+	        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+	        for(Document dbObject : output) {
+	            if((dbObject.containsKey(field1))&(dbObject.containsKey(field2))&(dbObject.containsKey(field3))&(dbObject.containsKey(field4))) {
+	                randomResult = dbObject.get(field1).toString() + "," + dbObject.get(field2).toString() + "," + dbObject.get(field3).toString() + "," + dbObject.get(field4).toString() + "," + dbObject.get(field5).toString()
+	                		+ "," + dbObject.get(field6).toString() + "," + dbObject.get(field7).toString();
+	            }
+	        }
+	        return randomResult;
+	    }
     
     
     /*
@@ -690,5 +643,42 @@ public class MongoDBConnection {
             }
         }
         return result;
+    }
+    //New method Espindola
+    public String executeRandomSelectIDUser(String collection, String field) {
+    	String randomResult = "";
+    	System.out.println("------------field" + field);
+    	System.out.println("------------collection" + collection);
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        //MongoCollection<Document> coll = mDataBase.getCollection(this.collection);
+        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+                
+        for(Document dbObject : output) {
+            if(dbObject.containsKey(field)) {
+                randomResult = dbObject.get(field).toString();
+                System.out.println(dbObject);
+            }
+        }
+        return randomResult;
+    }
+    
+    public JSONArray executeQueryRandom(String collection, String field, String filter) {
+        JSONObject json = new JSONObject();
+        JSONArray resultJ = new JSONArray();
+        
+        System.out.println("------------field" + field);
+        System.out.println("------------collection" + collection);
+        
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        
+        System.out.println("----- for start  " );
+        System.out.println("_______________________________________________");
+       try (MongoCursor<Document> cursor = coll.find(Filters.eq(field, filter)).iterator()){
+    	   while(cursor.hasNext()) {
+    		   resultJ.put(json = new JSONObject(cursor.next().toJson()));
+    		   System.out.println(resultJ);
+    	    }
+       }
+            return resultJ;
     }
 }

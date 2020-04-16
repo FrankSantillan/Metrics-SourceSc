@@ -1,14 +1,25 @@
-package com.globalClasses;
+package com.test.globalclasses;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.test.globalclasses.MongoDBConnection;
+
+
 public class MongoDBUtils {
+	/** 
+	   *<p>Return the number of results of a query.
+	   *@param env Environment, i.e TEST.
+	   *@param mDataBase Database name.
+	   *@param query Query that will be counted on SQL style Mongo.
+	   *@param A long number
+	   *@throws Exception
+	   * */
 	/** 
 	   *<p>Return the number of results of a query.
 	   *@param env Environment, i.e TEST.
@@ -29,20 +40,6 @@ public class MongoDBUtils {
 	       }
 	       return count;
 	   }
-	   
-	   public static String executeDelete(String env, String mDataBase, String collection) {
-	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
-	       String singleField = "";
-	       try {
-	           singleField = db.executeDelete(collection);
-	       } catch(Exception e) {
-	           e.printStackTrace();
-	       } finally {
-	           db.close();
-	       }
-	       return singleField;
-	   }
-	   
 
 	    /** 
 	   *<p>Execute a single select of a query on SQL or Mongo style.
@@ -52,11 +49,11 @@ public class MongoDBUtils {
 	   *@return A single record.
 	   *@throws Exception
 	   * */
-	   public static String executeSelectSingle(String env, String mDataBase, String query) {
+	   public static String executeSelectSingle(String env, String mDataBase, String coll, String query) {
 	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
 	       String singleField = "";
 	       try {
-	           singleField = db.executeSelectSingle(query);
+	           singleField = db.executeSelectSingle(query, coll);
 	       } catch(Exception e) {
 	           e.printStackTrace();
 	       } finally {
@@ -64,6 +61,37 @@ public class MongoDBUtils {
 	       }
 	       return singleField;
 	   }
+
+	   
+	   
+	    public static JSONArray executeMyQuery(String env, String mDataBase, String collection, String field, String filter) {
+	           MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	           JSONArray querySelect = new JSONArray();
+	           try {
+	               System.out.println("-----step 1");
+	               querySelect = db.executeQuerySelect(collection, field, filter); 
+	           } catch(Exception var9) {
+	               var9.printStackTrace();
+	           } finally {
+	               db.close();
+	           }
+	           System.out.println("return result");
+	           return querySelect;
+	       }
+	    public static JSONArray executeMyQueryID(String env, String mDataBase, String collection, String field, String filter) {
+	           MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	           JSONArray querySelect = new JSONArray();
+	           try {
+	               querySelect = db.executeQuerySelectID(collection, field, filter); 
+	           } catch(Exception var9) {
+	               var9.printStackTrace();
+	           } finally {
+	               db.close();
+	           }
+	           System.out.println("return result");
+	           return querySelect;
+	       }
+	    
 
 	   /** 
 	   *<p>Execute a select  with multiple records of a query on SQL or Mongo style.
@@ -101,104 +129,52 @@ public class MongoDBUtils {
 	       try {
 	           randomSelect = db.executeRandomSelect(collection, field);
 	       } catch(Exception var9) {
-	    	   System.out.println("catch");
 	           var9.printStackTrace();
 	       } finally {
 	           db.close();
 	       }
 	       return randomSelect;
 	   }
-	   /*
-	   public static String executeSelectByFields(String env, String mDataBase, String collection, String firstName, String lastName, String phone) {
-	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
-	       String querySelect = "";
-	       try {
-	    	   System.out.println("-----Executing searh by fields     ");
-	    	   querySelect = db.executeSelectByFields(collection, firstName, lastName, phone);	    	   
-	       } catch(Exception var9) {
-	           var9.printStackTrace();
-	       } finally {
-	           db.close();
-	       }
-	       System.out.println("return result");
-	       return querySelect;
-	   }*/
-	   
-	   public static boolean executeSelectByFields(String env, String mDataBase, String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
-	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
-	       boolean bool;
-	       try {
-	    	   bool = db.executeSelectByFields(collection, id, name,tech, active, isbacklog, startDate, endDate);	    	   
-	       } catch(Exception var9) {
-	           var9.printStackTrace();
-	           bool = false;
-	       } finally {
-	           db.close();    
-	       }
-	       return bool;
-	   }
-	   
-	   public static boolean executeSelectENull(String env, String mDataBase, String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
-	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
-	       boolean bool;
-	       try {
-	    	   bool = db.executeSelectENull(collection, id, name,tech, active, isbacklog, startDate, endDate);	    	   
-	       } catch(Exception var9) {
-	           var9.printStackTrace();
-	           bool = false;
-	       } finally {
-	           db.close();    
-	       }
-	       return bool;
-	   }
-	   
-	   public static boolean compareNulls(String env, String mDataBase, String collection, String id, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
-	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
-	       boolean bool;
-	       try {
-	    	   bool = db.compareNulls(collection, id, name,tech, active, isbacklog, startDate, endDate);	    	   
-	       } catch(Exception var9) {
-	           var9.printStackTrace();
-	           bool = false;
-	       } finally {
-	           db.close();    
-	       }
-	       return bool;
-	   }
-	   
-	   public static boolean executeSelectByFields2(String env, String mDataBase, String collection, String name, String tech, boolean active, boolean isbacklog, LocalDate startDate, LocalDate endDate) {
-	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
-	       boolean bool;
-	       try {
-	    	   bool = db.executeSelectByFields2(collection, name,tech, active, isbacklog, startDate, endDate);    	   
-	       } catch(Exception var9) {
-	           var9.printStackTrace();
-	           bool = false;
-	       } finally {
-	           db.close();    
-	       }
-	       return bool;
-	   }
-	      
-	   
-	   
-	   public static String executeSelectByID(String env, String mDataBase, String collection, String id) {
-	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
-	       String querySelect = "";
-	       try {
-	    	   System.out.println("-----Executing search by id  ");
-	    	   querySelect = db.executeSelectByID(collection, id);	    	   
-	       } catch(Exception var9) {
-	           var9.printStackTrace();
-	       } finally {
-	           db.close();
-	       }
-	       System.out.println("return result");
-	       return querySelect;
-	   }
-	   
-	   
 
+	   public static String executeRandomSelectID(String env, String mDataBase, String collection, String field) {
+	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	       String randomSelect = "";
+	       try {
+	           randomSelect = db.executeRandomSelectID(collection, field);
+	       } catch(Exception var9) {
+	           var9.printStackTrace();
+	       } finally {
+	           db.close();
+	       }
+	       return randomSelect;
+	   }
+
+	   public static String executeRandomSelectD(String env, String mDataBase, String collection, String id, String name, String tech, String active, String backlog, String startDate, String endDate) {
+	         MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	         String randomSelect = "";
+	         try {
+	             randomSelect = db.executeRandomSelectD(collection, id, name, tech, active, backlog, startDate, endDate);
+	         } catch(Exception exception) {
+	             exception.printStackTrace();
+	         } finally {
+	             db.close();
+	         }
+	         return randomSelect;
+	     }
+	   
+	   public static ArrayList<String> split(String var) {
+         ArrayList<String> result = new ArrayList<>();
+         String[] parts = var.split(",");
+         result.add(parts[0]);
+         result.add(parts[1]);
+         result.add(parts[2]);
+         result.add(parts[3]);
+         result.add(parts[4]);
+         result.add(parts[5]);
+         result.add(parts[6]);
+       
+         return result;
+     }
 
 	    /** 
 	   *<p>Execute a random select from given collection.
@@ -241,5 +217,24 @@ public class MongoDBUtils {
 	           db.close();
 	       }
 	       return jsonResult;
+	   }
+	   
+	   public static String executeRandomSelectIDUser(String env, String mDataBase, String collection, String field, String filter) {
+	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	       Random r = new Random();
+	       JSONArray randomSelect;
+	       JSONObject jjo;
+	       String res = "";
+	       try {
+	           randomSelect = db.executeQueryRandom(collection, field, filter);
+	           int ind = r.nextInt(randomSelect.length() + 1);
+	           jjo = randomSelect.getJSONObject(ind);
+	           res = jjo.getJSONObject("_id").getString("$oid").toString();
+	       } catch(Exception var9) {
+	           var9.printStackTrace();
+	       } finally {
+	           db.close();
+	       }
+	       return res;
 	   }
 }
