@@ -270,4 +270,41 @@ public class MongoDBUtils {
 	       }
 	       return jsonResult;
 	   }
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   /// MY METHODS
+	   
+	   public static LocalDate executeRandomSelectDate(String env, String mDataBase, String collection, String field) {
+	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	       LocalDate randomSelect = null ;
+	       try {
+	           randomSelect = db.executeRandomSelectDate(collection, field);
+	       } catch(Exception var9) {
+	           var9.printStackTrace();
+	       } finally {
+	           db.close();
+	       }
+	       return randomSelect;
+	   }
+	   
+	   
+	   public static String executeRandomSelectJson(String env, String mDataBase, String collection) {
+	       MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+	       String randomSelect = "";
+	       try {
+	           randomSelect = db.executeRandomSelectJson(collection);
+	       } catch(Exception var9) {
+	    	   System.out.println("catch");
+	           var9.printStackTrace();
+	       } finally {
+	           db.close();
+	       }
+	       return randomSelect;
+	   }
 }

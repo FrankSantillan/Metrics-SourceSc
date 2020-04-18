@@ -28,7 +28,7 @@ import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 public class ApiTools {
-	public String hostName = ApiPaths.MONGOCRUD_ENDPOINT;
+	public String hostName = ApiPaths.METRICS_ENDPOINT;
 	public ResponseEntity<String> response;
 	public ResponseEntity<String> requestBody;
 	public MediaType contentType = MediaType.APPLICATION_JSON;
@@ -49,12 +49,10 @@ public class ApiTools {
 			
 			restTemplate.setErrorHandler(new ResponseErrorHandler() {
 				
-				@Override
 				public boolean hasError(ClientHttpResponse response) throws IOException {
 					return false;
 				}
 				
-				@Override
 				public void handleError(ClientHttpResponse response) throws IOException {
 				}
 			});
@@ -92,7 +90,7 @@ public class ApiTools {
 				}
 			});
 			//HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(map, headers);
-			HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+			HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
 			//System.out.println("\n\tRequest body: " + requestBody );
 			System.out.println("\n\tFULL PATH " + hostName + "" + apiPath + "" + HttpMethod.POST + "" + requestEntity + "" + String.class);
 			//response = restTemplate.exchange(hostName + apiPath, HttpMethod.PUT, , String.class);
@@ -114,20 +112,18 @@ public class ApiTools {
 		    //headers.add("Authorization", null);
 			headers.add("OUser-Agent", "User-Agent");
 			headers.add("Content-Type", "application/json");
-
 			restTemplate.setErrorHandler(new ResponseErrorHandler() {
 				
-				@Override
 				public boolean hasError(ClientHttpResponse response) throws IOException {
 					return false;
 				}
 				
-				@Override
 				public void handleError(ClientHttpResponse response) throws IOException {
 				}
 			});
+			
 			//HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(map, headers);
-			HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+			HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
 			//System.out.println("--Request body " + requestBody );
 			//System.out.println("\n\tFULL PATH " + hostName + "" + apiPath + "" + HttpMethod.PUT + "" + requestEntity + "" + String.class);
 			response = restTemplate.exchange(hostName + apiPath, HttpMethod.PUT, requestEntity, String.class);
