@@ -673,10 +673,9 @@ public class MongoDBConnection {
         
         System.out.println("----- for start  " );
         System.out.println("_______________________________________________");
-       try (MongoCursor<Document> cursor = coll.find(Filters.eq(field, filter)).iterator()){
+       try (MongoCursor<Document> cursor = coll.find(Filters.and(Filters.eq(field, filter), Filters.eq("status", "Active"))).iterator()){
     	   while(cursor.hasNext()) {
     		   resultJ.put(json = new JSONObject(cursor.next().toJson()));
-    		   System.out.println(resultJ);
     	    }
        }
             return resultJ;

@@ -17,7 +17,7 @@ Feature: DELETE Method metric collection api test
     Given I have an metric ID with wrong format
     And I prepare the resource to Delete an metric
     When I send the DELETE Request
-    Then the status code should be 404
+    Then the status code should be 400
     And I verify in the data base if the resource was Deleted
     
   @DelN2
@@ -25,7 +25,7 @@ Feature: DELETE Method metric collection api test
     Given I have an null ID
     And I prepare the resource to Delete an metric
     When I send the DELETE Request
-    Then the status code should be 404
+    Then the status code should be 400
     And I verify in the data base if the resource was Deleted
     
   @DelN3

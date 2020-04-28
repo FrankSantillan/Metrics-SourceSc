@@ -86,9 +86,8 @@ public class DELETESteps {
 	@Given("I have an unexistent metric ID")
 	public void i_have_an_unexistent_metric_ID() {
 	    // Write code here that turns the phrase above into concrete actions
-	    userID = unext;
+	    userID = "5e94cb712e64f70bb043b946";
 	}
-
 
 
 	@Given("I prepare the resource to Delete an metric")
@@ -112,11 +111,6 @@ public class DELETESteps {
 	    int result = Integer.parseInt(base.response.getStatusCode().toString().substring(0, 3));
 	    System.out.println("code " + code + "res: " + result);
 	    assertEquals(code, result);
-	    if (result == code) {
-	    	System.out.println("Success: --------------------- PASSED");
-	    }else {
-	    	System.out.println("Error: ----------------- FAILED");
-	    }
 	}
 	
 	@Then("I verify in the data base if the resource was Deleted")

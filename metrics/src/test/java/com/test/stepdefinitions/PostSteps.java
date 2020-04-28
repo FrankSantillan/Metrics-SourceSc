@@ -58,14 +58,22 @@ public class PostSteps {
 	@Given("I have an Evaluator ID")
 	public void i_have_an_Evaluator_ID() {
 		// Write code here that turns the phrase above into concrete actions
-		evaluator_id = MongoDBUtils.executeRandomSelectIDUser("TEST", "InternHome", "users", "role", "Mentor");
-		evaluator_id = "5e94c9a02e64f70bb043b905";
+		//evaluator_id = MongoDBUtils.executeRandomSelectIDUser("TEST", "InternHome", "users", "role", "mentor");
+		evaluator_id = "5ea712ece6cd3109e8bc71c9";
 	}
 
 	@Given("I have an Evaluated ID")
 	public void i_have_an_Evaluated_ID() {
 		// Write code here that turns the phrase above into concrete actions
-		evaluated_id = MongoDBUtils.executeRandomSelectIDUser("TEST", "InternHome", "users", "role", "Intern");
+		//evaluated_id = MongoDBUtils.executeRandomSelectIDUser("TEST", "InternHome", "users", "role", "intern");
+		evaluated_id = "5ea7125ce6cd3109e8bc71c6";
+	}
+	
+	@Given("I have an Evaluator ID as null")
+	public void i_have_an_Evaluator_ID_as_null() {
+		// Write code here that turns the phrase above into concrete actions
+		evaluated_id = " ";
+
 	}
 	
 	@Given("I have an Evaluated ID as same as evaluator")
@@ -95,7 +103,12 @@ public class PostSteps {
 		test = MongoDBUtils.executeRandomSelectID("TEST", "InternHome", "sprints", id);
 		sprint_id = test;
 	}
-
+	
+	@Given("I have an unexistent Sprint ID")
+	public void i_have_an_unexistent_Sprint_ID() {
+	    // Write code here that turns the phrase above into concrete actions
+		sprint_id = "5ea70358ce7a050fb7c36eca";
+	}
 	@Given("I have an the attendance")
 	public void i_have_an_the_attendance() {
 		// Write code here that turns the phrase above into concrete actions
@@ -725,6 +738,15 @@ public class PostSteps {
 			System.out.println("Success: --------------------- Success");
 		}
 	}
+	
+	@Then("verify the error message {string} from the API")
+	public void verify_the_error_message_from_the_API(String api) {
+	    // Write code here that turns the phrase above into concrete actions
+		JSONObject result = new JSONObject(base.responseBody);
+		String error = api;
+	    assertEquals(error, result.get("message"));
+	}
+
 
 	@After
 	public void printResults(Scenario sce) {
