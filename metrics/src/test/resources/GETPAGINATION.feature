@@ -10,13 +10,13 @@ Feature: In order to test MetricsCollection API
 	Then I should retrieve an OK
 	And I validate size
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 2 Get using size equals zero
 	Given I have "size" as zero
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "size had an invalid value"
 	
 	@gp
 	Scenario: 3 Get using size as over leng
@@ -26,45 +26,45 @@ Feature: In order to test MetricsCollection API
 	Then I should retrieve an OK
 	And I validate size that are equals all documents
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 4 Get using size as letters
 	Given I have "size" as letters
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "size field must only have numbers"
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 5 Get using size as alphanumeric
 	Given I have "size" as alphanumeric
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "size field must only have numbers"
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 6 Get using size as special chars
 	Given I have "size" as special chars
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "size field must only have numbers"
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 7 Get using size as negative number
 	Given I have "size" as negative
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "size had an invalid value"
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 8 Get using size as null
 	Given I have "size" as null
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "size field must only have numbers"
 	
 	@gp
 	Scenario: 9 Get using size as empty
@@ -83,13 +83,13 @@ Feature: In order to test MetricsCollection API
 	Then I should retrieve an OK
 	Then size should be one
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 11 Get using page equals zero
 	Given I have "page" as zero
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request	
-	And I validate error structure
+	And I validate error structure message "page had an invalid value"
 	
 	@getpage
 	Scenario: 12 Get using page as over leng
@@ -98,45 +98,45 @@ Feature: In order to test MetricsCollection API
 	Then I should retrieve an OK
 	And this equals array empty
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 13 Get using page as letters
 	Given I have "page" as letters
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "page field must only have numbers"
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 14 Get using page as alphanumeric
 	Given I have "page" as alphanumeric
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "page field must only have numbers"
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 15 Get using page as special chars
 	Given I have "page" as special chars
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "page field must only have numbers"
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 16 Get using page as negative number
 	Given I have "page" as negative
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "page had an invalid value"
 	
-	#NEGATIVE
-  @NEGATIVE
+	#getpag
+  @getpag
 	Scenario: 17 Get using page as null
 	Given I have "page" as null
 	When I search metrics with pagination using GET method
 	Then I should retrieve a bad request
-	And I validate error structure
+	And I validate error structure message "page field must only have numbers"
 	
 	@getpage
 	Scenario: 18 Get using page as empty
@@ -172,7 +172,7 @@ Feature: In order to test MetricsCollection API
 	And I have "size" equals 1
 	When I search metrics with pagination using GET method
 	Then I should retrieve an OK
-	Then size should be one
+	And size should be one
 	
 	@pg1
 	Scenario: 22 Get using page equals one
@@ -180,7 +180,7 @@ Feature: In order to test MetricsCollection API
 	And I have "page" equals 1
 	When I search metrics with pagination using GET method
 	Then I should retrieve an OK
-	Then size should be one
+	And I validate size that are equals all documents
   
 	@pg1
 	Scenario: 23 Get using page equals total document
@@ -188,4 +188,4 @@ Feature: In order to test MetricsCollection API
 	And I have "page" equals total documents
 	When I search metrics with pagination using GET method
 	Then I should retrieve an OK
-	Then size should be one
+	And this equals array empty

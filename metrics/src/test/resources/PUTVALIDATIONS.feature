@@ -4,8 +4,8 @@ Feature: In order to contine testing MetricsCollection API
 	in this case I going to run scenarios where devs implements more validations like
 	update filds as null or empty and date format
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 1 Update where I send evaluator_id as null
   Given I have an existing metric ID
 	And I have an "evaluator_id" as null
@@ -17,11 +17,11 @@ Feature: In order to contine testing MetricsCollection API
 	And I have a comment fields
 	When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "evaluator_id is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 2 Update where I send evaluated_id as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -33,11 +33,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "evaluated_id is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 3 Update where I send type as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -49,7 +49,7 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "type that is required"
   And I validate update with mongoDB
 
   @pvnulls
@@ -66,8 +66,8 @@ Feature: In order to contine testing MetricsCollection API
   Then I should retrieve an OK
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 5 Update where I send sprint_id as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -79,13 +79,13 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message " sprint_id is required"
   And I validate update with mongoDB
 	
 	# bools and comments
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 6 Update where I send metrics: attendance as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -98,11 +98,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "attendance is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 7 Update where I send metrics: blockers: blocked asnull
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -115,7 +115,7 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "blocked is required"
   And I validate update with mongoDB
 
   @pvnulls
@@ -133,8 +133,8 @@ Feature: In order to contine testing MetricsCollection API
   Then I should retrieve an OK
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 9 Update where I send metrics: proactive: looked_for_help as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -147,11 +147,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "looked_for_help is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 10 Update where I send metrics: proactive: provided_help as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -164,11 +164,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "provided_help is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 11  Update where I send metrics: proactive: worked_ahead as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -181,11 +181,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "worked_ahead is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 12 Update where I send metrics: proactive: shared_resources as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -198,11 +198,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "shared_resources is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 13 Update where I send metrics: carried_over as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -215,11 +215,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "carried_over is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 14 Update where I send retroactive: delayed_looking_help as null
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -232,7 +232,7 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "delayed_looking_help is required"
   And I validate update with mongoDB
 
 	@pvnulls
@@ -252,8 +252,8 @@ Feature: In order to contine testing MetricsCollection API
 
   #-------------------------------------------------------------------------------------------
 
-	#NEGATIVE
-  @NEGATIVE
+	#NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 16 Update where I send evaluator_id as empty
   Given I have an existing metric ID
 	And I have an "evaluator_id" as empty
@@ -265,11 +265,11 @@ Feature: In order to contine testing MetricsCollection API
 	And I have a comment fields
 	When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "evaluator_id is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 17 Update where I send evaluated_id as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -281,11 +281,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "evaluated_id is required"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 18 Update where I send type as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -297,7 +297,7 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "type is required"
   And I validate update with mongoDB
 
   @pvempty
@@ -314,8 +314,8 @@ Feature: In order to contine testing MetricsCollection API
   Then I should retrieve an OK
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 20 Update where I send sprint_id as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -327,13 +327,13 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "sprint_id is required"
   And I validate update with mongoDB
 	
 	# bools and comments
 	
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 21 Update where I send metrics: attendance as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -346,11 +346,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "attendance only admits 'true' or 'false'"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 22 Update where I send metrics: blockers: blocked asempty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -363,7 +363,7 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "blocked only admits 'true' or 'false'"
   And I validate update with mongoDB
 
   @pvempty
@@ -381,8 +381,8 @@ Feature: In order to contine testing MetricsCollection API
   Then I should retrieve an OK
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 24 Update where I send metrics: proactive: looked_for_help as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -395,11 +395,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "looked_for_help only admits 'true' or 'false'"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 25 Update where I send metrics: proactive: provided_help as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -412,11 +412,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "provided_help only admits 'true' or 'false'"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 26  Update where I send metrics: proactive: worked_ahead as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -429,11 +429,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "worked_ahead only admits 'true' or 'false'"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 27 Update where I send metrics: proactive: shared_resources as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -446,11 +446,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "shared_resources only admits 'true' or 'false'"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 28 Update where I send metrics: carried_over as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -463,11 +463,11 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "carried_over only admits 'true' or 'false'"
   And I validate update with mongoDB
 
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 29 Update where I send retroactive: delayed_looking_help as empty
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -480,7 +480,7 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "delayed_looking_help only admits 'true' or 'false'"
   And I validate update with mongoDB
 
 
@@ -500,8 +500,8 @@ Feature: In order to contine testing MetricsCollection API
 
 
   #-------------------------------------------------------------------------------------------
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 31 Update where I send evaluator and evalauted as equals
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -512,12 +512,12 @@ Feature: In order to contine testing MetricsCollection API
   And I have a Boolean fields as false
   And I have a comment fields
   When I update metric using PUT operatation
-  Then I should retrieve a bad request
-  And I validate error structure
+  Then I should retrieve a conflict
+  And I validate error structure message "evaluated_id and evaluator_id that have given must not be equals"
   And I validate update with mongoDB
     
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUTVAL
+  @NEGATIVEPUTVAL
   Scenario: 32 Update where I send date as differente format
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -529,5 +529,5 @@ Feature: In order to contine testing MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "date has incorrect format"
   And I validate update with mongoDB

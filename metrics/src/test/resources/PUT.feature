@@ -1,9 +1,9 @@
-@PUTMETHOD
+	@PUTMETHOD
 Feature: In order to test MetricsCollection API
 	I going to update metrics collection using  the PUT method for this API
 	
 	
-	@putid
+	@putid1
   Scenario: 1 Update metrics using an existing ID
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -17,8 +17,8 @@ Feature: In order to test MetricsCollection API
   Then I should retrieve an OK
   And I validate update with mongoDB
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 2 Update metrics using a non exist ID
   Given I have a non exist ID
   And I have an existing evaluator
@@ -30,10 +30,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a not found
-  And I validate error structure
+  And I validate error structure message "Metric not found"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 3 Update metrics using an ID as letters
   Given I have a metric ID as letters
   And I have an existing evaluator
@@ -45,10 +45,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "The given ID has incorrect format"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 4 Update metrics using an ID as numeric 
   Given I have a metric ID as numeric
   And I have an existing evaluator
@@ -60,10 +60,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "The given ID has incorrect format"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 5 Update metrics using an ID as over length 
   Given I have a metric ID as over length
   And I have an existing evaluator
@@ -75,10 +75,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "The given ID has incorrect format"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 6 Update metrics using an ID as null 
   Given I have a metric ID as null
   And I have an existing evaluator
@@ -90,10 +90,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "The given ID has incorrect format"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 7 Update metrics using an ID as empty 
   Given I have a metric ID as empty
   And I have an existing evaluator
@@ -105,12 +105,12 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a method not allowed
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
-  # E V A L U A T O R 
+  # E V A L U A T O R ------------------------------------------------------
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 8 Update metrics using a non exist evaluator
   Given I have an existing metric ID
   And I have a non exist "evaluator_id"
@@ -121,12 +121,12 @@ Feature: In order to test MetricsCollection API
   And I have a Boolean fields as false
   And I have a comment fields
   When I update metric using PUT operatation
-  Then I should retrieve a bad request
-  And I validate error structure
+  Then I should retrieve a conflict
+  And I validate error structure message "evaluador_id doest not exist"
   
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 9 Update metrics using a evaluator as letters
   Given I have an existing metric ID
   And I have an "evaluator_id" as letters
@@ -138,10 +138,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 10 Update metrics using a evaluator as numeric
   Given I have an existing metric ID
   And I have an "evaluator_id" as numeric
@@ -153,10 +153,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 11 Update metrics using a evaluator as over length
   Given I have an existing metric ID
   And I have an "evaluator_id" as over length
@@ -168,11 +168,11 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
   # E V A L U A T E D-----------------------------------------------------------------------
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 12 Update metrics using a non exist evaluated
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -183,11 +183,11 @@ Feature: In order to test MetricsCollection API
   And I have a Boolean fields as false
   And I have a comment fields
   When I update metric using PUT operatation
-  Then I should retrieve a bad request
-  And I validate error structure
+  Then I should retrieve a conflict
+  And I validate error structure message "evaluated_id doest not exist"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 13 Update metrics using a evaluated as letters
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -199,10 +199,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 14 Update metrics using a evaluated as numeric
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -214,10 +214,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 15 Update metrics using a evaluated as over length
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -229,12 +229,12 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
-  # S P R I N
+  # S P R I N ---------------------------------------------------------
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 16 Update metrics using a non exist sprint
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -245,11 +245,11 @@ Feature: In order to test MetricsCollection API
   And I have a Boolean fields as false
   And I have a comment fields
   When I update metric using PUT operatation
-  Then I should retrieve a bad request
-  And I validate error structure
+  Then I should retrieve a conflict
+  And I validate error structure message "sprint_id does not exist"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 17 Update metrics using a sprint as letters
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -261,10 +261,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 18 Update metrics using a sprint as numeric
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -276,10 +276,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 19 Update metrics using a sprint as over length
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -291,7 +291,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "ERRORMESSAGE"
   
   # T Y P E---------------------------------------------
   
@@ -567,8 +567,8 @@ Feature: In order to test MetricsCollection API
   Then I should retrieve an OK
   And I validate update with mongoDB
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 38 Update metrics using metrics attendance as uppercase
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -581,10 +581,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message " attendance only admits 'true' or 'false'"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 39 Update metrics using metrics carried_over as uppercase
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -597,10 +597,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "carried_over only admits 'true' or 'false'"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 40 Update metrics using blockers blocked as uppercase
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -613,10 +613,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "blocked only admits 'true' or 'false'"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 41 Update metrics using proactive looked_for_help as uppercase
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -629,10 +629,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "looked_for_help only admits 'true' or 'false'"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 42 Update metrics using proactive provided_help as uppercase
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -645,10 +645,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "provided_help only admits 'true' or 'false'"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 43 Update metrics using proactive worked_ahead as uppercase
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -661,10 +661,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "worked_ahead only admits 'true' or 'false'"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 44 Update metrics using proactive shared_resources as uppercase
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -677,10 +677,10 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "shared_resources only admits 'true' or 'false'"
   
-  #NEGATIVE
-  @NEGATIVE
+  #NEGATIVEPUT
+  @NEGATIVEPUT
   Scenario: 45 Update metrics using retroactive delayed_looking_help as uppercase
   Given I have an existing metric ID
   And I have an existing evaluator
@@ -693,5 +693,5 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I update metric using PUT operatation
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "delayed_looking_help only admits 'true' or 'false'"
   

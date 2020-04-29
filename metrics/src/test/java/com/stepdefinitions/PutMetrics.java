@@ -51,7 +51,32 @@ public class PutMetrics {
 	public void i_have_an_existing_evaluator() {
 	    //variable.evaluatorID = MongoDBUtils.executeRandomSelect("TEST", "InternHome", "users", "_id");
 	    
-	    variable.evaluatorID = "5e95c4341051380d88aee06d";
+		JSONObject object = new JSONObject();
+		
+		object.put("firstName", random.randomFirstName());
+		object.put("lastName", random.randomLastName());
+		object.put("email", random.randomFirstName()+"@agilethought.com");
+		object.put("phone",  random.generateNumberPhoneRandomString());
+		object.put("startDate", LocalDate.now());
+		object.put("endDate", LocalDate.now().plusDays(60));
+		object.put("activeTechnology",random.randomHacker());
+		object.put("status", "active");
+		object.put("role", "Mentor");
+		
+		base.requestBody = object.toString();
+
+		base.apiResource = ApiPaths.USERS  ;
+		base.ServiceApi = new ApiTools();
+	    base.response = base.ServiceApi.POSTUSERS(base.apiResource,base.requestBody);
+		base.responseBody = base.response.getBody();
+		base.method = "POST";
+		
+		JSONObject id = new JSONObject(base.responseBody);
+		
+		variable.evaluatorID = id.getString("userId");
+
+	    //variable.evaluatorID = "5e95c4341051380d88aee06d";
+	    
 	    variable.object.put("evaluator_id", variable.evaluatorID);
 	}
 	
@@ -71,7 +96,31 @@ public class PutMetrics {
 		}
 		*/
 		
-		variable.evaluatedID = "5e976d9aa0755e0b34d43aeb";
+		//variable.evaluatedID = "5e976d9aa0755e0b34d43aeb";
+		
+JSONObject object = new JSONObject();
+		
+		object.put("firstName", random.randomFirstName());
+		object.put("lastName", random.randomLastName());
+		object.put("email", random.randomFirstName()+"@agilethought.com");
+		object.put("phone",  random.generateNumberPhoneRandomString());
+		object.put("startDate", LocalDate.now());
+		object.put("endDate", LocalDate.now().plusDays(60));
+		object.put("activeTechnology",random.randomHacker());
+		object.put("status", "active");
+		object.put("role", "Intern");
+		
+		base.requestBody = object.toString();
+
+		base.apiResource = ApiPaths.USERS  ;
+		base.ServiceApi = new ApiTools();
+	    base.response = base.ServiceApi.POSTUSERS(base.apiResource,base.requestBody);
+		base.responseBody = base.response.getBody();
+		base.method = "POST";
+	
+		JSONObject id = new JSONObject(base.responseBody);
+		
+		variable.evaluatedID = id.getString("userId");
 		variable.object.put("evaluated_id", variable.evaluatedID);
 	}
 	
@@ -366,13 +415,13 @@ public class PutMetrics {
 		base.requestBody = variable.object.toString();
 		System.out.println("Request body : "+  variable.object.toString());
 
-		base.apiResource = ApiPaths.METRICS + variable.metricID ;
+		base.apiResource = ApiPaths.METRICS + variable.param ;
 		base.ServiceApi = new ApiTools();
 	    base.response = base.ServiceApi.PUTMethod(base.apiResource,base.requestBody);
 		base.responseBody = base.response.getBody();
 		base.method = "PUT";		
 		
-		myTools.resource(ApiPaths.METRICS  + variable.metricID );
+		myTools.resource(ApiPaths.METRICS  + variable.param );
         myTools.statusCode(String.valueOf(base.response.getStatusCodeValue()));
         myTools.responseBody(base.responseBody);
         
@@ -381,6 +430,62 @@ public class PutMetrics {
 		System.out.println("\n\tStatus code response\t " + base.response.getStatusCodeValue());
 	}
 	
+	@When("I create a new metric using POST operatation")
+	public void i_create_a_new_metric_using_POST_operatation() {
+		variable.metrics.put("blockers", variable.blockers);
+		variable.metrics.put("proactive", variable.proactive);
+		variable.metrics.put("retroactive", variable.retroactive);
+		variable.object.put("metrics", variable.metrics);
+		
+		base.requestBody = variable.object.toString();
+		System.out.println("Request body : "+  variable.object.toString());
+
+		base.apiResource = ApiPaths.METRICS + variable.param ;
+		base.ServiceApi = new ApiTools();
+	    base.response = base.ServiceApi.POSTMethod(base.apiResource,base.requestBody);
+		base.responseBody = base.response.getBody();
+		base.method = "POST";		
+			
+		myTools.resource(ApiPaths.METRICS  + variable.param );
+        myTools.statusCode(String.valueOf(base.response.getStatusCodeValue()));
+        myTools.responseBody(base.responseBody);
+        
+        
+		System.out.println("---------------response body "+base.responseBody);
+		System.out.println("\n\tStatus code response\t " + base.response.getStatusCodeValue());
+	}
+
+	@Then("I validate create a new with mongoDB")
+	public void i_validate_create_a_new_with_mongoDB() {
+		switch(base.response.getStatusCodeValue()) {
+		case 200:
+			if ( variable.date == null) {
+				variable.object.put("date", LocalDate.now() );
+			}
+			if(variable.blockers_comments == null) {
+				variable.blockers.put("comments", "");
+				variable.metrics.put("blockers", variable.blockers);
+				variable.object.put("metrics", variable.metrics);
+			}
+			if(variable.retroactive_comments == null) {
+				variable.retroactive.put("comments", "");
+				variable.metrics.put("retroactive", variable.retroactive);
+				variable.object.put("metrics", variable.metrics);
+			}
+			
+			assert MongoDBUtils.compareHP("TEST", "InternHome", "metrics", variable.param, variable.object) == true ;
+			break;
+		case 400:
+			System.out.println("to work");
+			break;
+		case 404:
+			System.out.println("to work");
+			break;
+		}
+	}
+
+
+
 	
 	@Then("I validate update with mongoDB")
 	public void i_validate_update_with_mongoDB() {
@@ -402,7 +507,7 @@ public class PutMetrics {
 				variable.object.put("metrics", variable.metrics);
 			}
 			
-			assert MongoDBUtils.compareHP("TEST", "InternHome", "metrics", variable.metricID, variable.object) == true ;
+			assert MongoDBUtils.compareHP("TEST", "InternHome", "metrics", variable.param, variable.object) == true ;
 			break;
 		case 400:
 			System.out.println("to work");

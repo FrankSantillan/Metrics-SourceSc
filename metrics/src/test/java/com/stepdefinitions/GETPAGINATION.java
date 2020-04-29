@@ -57,64 +57,64 @@ public class GETPAGINATION{
 	@Given("I have {string} as numeric")
 	public void i_have_as_numeric(String string) {
 		variable.size = (int)(Math.random()*(totalDocs-1+1)+1);
-	    variable.queryParam = variable.queryParam + "&" + string + "=" + variable.size ;
+	    variable.param = variable.param + "&" + string + "=" + variable.size ;
 	}
 
 
 	@Given("I have {string} as zero")
 	public void i_have_as_zero(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + 0;
+		variable.param = variable.param + "&" + string + "=" + 0;
 	}
 
 	@Given("I have {string} as over lenght")
 	public void i_have_as_over_lenght(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + 2147483647;
+		variable.param = variable.param + "&" + string + "=" + 2147483647;
 	}
 
 
 	@Given("I have {string} as letters")
 	public void i_have_as_letters(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + random.randomNumberLetters();
+		variable.param = variable.param + "&" + string + "=" + random.randomNumberLetters();
 	}
 
 	@Given("I have {string} as alphanumeric")
 	public void i_have_as_alphanumeric(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + random.alphanumeric() ;
+		variable.param = variable.param + "&" + string + "=" + random.alphanumeric() ;
 	}
 
 	@Given("I have {string} as special chars")
 	public void i_have_as_special_chars(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + random.randomSpecialCharacteres() ;
+		variable.param = variable.param + "&" + string + "=" + random.randomSpecialCharacteres() ;
 	}
 
 	@Given("I have {string} as negative")
 	public void i_have_as_negative(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + (int) (Math.random()*-(9-1+1)+1);
+		variable.param = variable.param + "&" + string + "=" + (int) (Math.random()*-(9-1+1)+1);
 	}
 
 	@Given("I have {string} as null")
 	public void i_have_as_null(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + null ;
+		variable.param = variable.param + "&" + string + "=" + null ;
 	}
 
 	@Given("I have {string} as empty")
 	public void i_have_as_empty(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" ;
+		variable.param = variable.param + "&" + string + "=" ;
 	}
 	
 	@Given("I have {string} equals {int}")
 	public void i_have_equals(String string, Integer number) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + number ;
+		variable.param = variable.param + "&" + string + "=" + number ;
 	}
 	
 	@Given("I have {string} as outpage")
 	public void i_have_as_outpage(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + (totalDocs + 2) ;
+		variable.param = variable.param + "&" + string + "=" + (totalDocs + 2) ;
 	}
 	
 	@Given("I have {string} equals total documents")
 	public void i_have_equals_total_documents(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + totalDocs ;
+		variable.param = variable.param + "&" + string + "=" + totalDocs ;
 	}
 
 
@@ -122,14 +122,14 @@ public class GETPAGINATION{
 	
 	@When("I search metrics with pagination using GET method")
 	public void i_search_metrics_with_pagination_using_GET_method() {
-		base.apiResource = ApiPaths.METRICS + "?" + variable.queryParam ; 
+		base.apiResource = ApiPaths.METRICS + "?" + variable.param ; 
 		base.ServiceApi = new ApiTools();
         base.response = base.ServiceApi.retrieve(base.apiResource);
         base.responseBody = base.response.getBody();
         base.method = "GET";
         
-        System.out.println(ApiPaths.METRICS + "?"+ variable.queryParam);
-        myTools.resource(ApiPaths.METRICS + "?"+ variable.queryParam );
+        System.out.println(ApiPaths.METRICS + "?"+ variable.param);
+        myTools.resource(ApiPaths.METRICS + "?"+ variable.param );
         myTools.statusCode(String.valueOf(base.response.getStatusCodeValue()));
         myTools.responseBody(base.responseBody);
 	}

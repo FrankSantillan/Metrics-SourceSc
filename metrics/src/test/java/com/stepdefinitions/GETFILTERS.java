@@ -46,82 +46,82 @@ public class GETFILTERS{
 	
 	@Given("I have an existing {string} to search")
 	public void i_have_an_existing_to_search(String string) {
-	    variable.queryParam = variable.queryParam + "&" + string + "=" + variable.metricObject.get(string);
+	    variable.param = variable.param + "&" + string + "=" + variable.metricObject.get(string);
 	}
 
 	@Given("I have a non exist {string} to search")
 	public void i_have_a_non_exist_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + "5e9486cbe5303d599f55f833";
+		variable.param = variable.param + "&" + string + "=" + "5e9486cbe5303d599f55f833";
 	}
 	
 	@Given("I have an {string} as letters to search")
 	public void i_have_an_as_letters_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + random.idLetters();
+		variable.param = variable.param + "&" + string + "=" + random.idLetters();
 	}
 
 	
 	@Given("I have an {string} as numeric to search")
 	public void i_have_an_as_numeric_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + random.idNumber();
+		variable.param = variable.param + "&" + string + "=" + random.idNumber();
 	}
 
 	@Given("I have an {string} as special chars to search")
 	public void i_have_an_as_special_chars_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + random.randomSpecialCharacteres();
+		variable.param = variable.param + "&" + string + "=" + random.randomSpecialCharacteres();
 	}
 
 	@Given("I have an {string} as null to search")
 	public void i_have_an_as_null_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + null;
+		variable.param = variable.param + "&" + string + "=" + null;
 	}
 
 	@Given("I have an {string} as empty to search")
 	public void i_have_an_as_empty_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + "";
+		variable.param = variable.param + "&" + string + "=" + "";
 	}
 
 	// D A T E 
 	
 	@Given("I have start date to search")
 	public void i_have_start_date_to_search() {
-		variable.queryParam = variable.queryParam + "&" + "startDate" + "=" + variable.metricObject.get("date");
+		variable.param = variable.param + "&" + "startDate" + "=" + variable.metricObject.get("date");
 	}
 
 	@Given("I have {string} as incorrect format to search")
 	public void i_have_as_incorrect_format_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + "01-01-2020";
+		variable.param = variable.param + "&" + string + "=" + "01-01-2020";
 	}
 	
 	@Given("I have end date to search")
 	public void i_have_end_date_to_search() {
-		variable.queryParam = variable.queryParam + "&" + "endDate" + "=" + LocalDate.now();
+		variable.param = variable.param + "&" + "endDate" + "=" + LocalDate.now();
 	}
 
 
 	@Given("I have {string} as null to search")
 	public void i_have_as_null_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + null;
+		variable.param = variable.param + "&" + string + "=" + null;
 	}
 
 	@Given("I have {string} as empty to search")
 	public void i_have_as_empty_to_search(String string) {
-		variable.queryParam = variable.queryParam + "&" + string + "=" + "";
+		variable.param = variable.param + "&" + string + "=" + "";
 	}
 
 
 	@When("I search metric using GET operation adding filters")
 	public void i_search_metric_using_GET_operation_adding_filters() {
-		base.apiResource = ApiPaths.METRICS + "?" + variable.queryParam ;
+		base.apiResource = ApiPaths.METRICS + "?" + variable.param ;
 		base.ServiceApi = new ApiTools();
         base.response = base.ServiceApi.retrieve(base.apiResource);
         base.responseBody = base.response.getBody();
         base.method = "GET";
         
-        myTools.resource( ApiPaths.METRICS + "?" + variable.queryParam  );
+        myTools.resource( ApiPaths.METRICS + "?" + variable.param  );
         myTools.statusCode(String.valueOf(base.response.getStatusCodeValue()));
         myTools.responseBody(base.responseBody);
         
-        System.out.println("\n\tQuery param \t " + ApiPaths.METRICS + "?" + variable.queryParam);
+        System.out.println("\n\tQuery param \t " + ApiPaths.METRICS + "?" + variable.param);
         System.out.println("\n\tResponse body \t " + base.responseBody);
 
         System.out.println("\n\tStatus code response\t " + base.response.getStatusCodeValue());

@@ -40,6 +40,6 @@ public class globalVariables{
 	//
 	public JSONObject metricObject = new JSONObject();
 	
-	public String queryParam= "";
+	public String param= "";
 	
 }

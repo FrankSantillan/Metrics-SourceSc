@@ -9,42 +9,41 @@ Feature: In order to test MetricsCollection API
   Then I should retrieve an OK
 	
 	@GetRegression
-  Scenario: 2 Get Sprint by existing ID
+  Scenario: 2 Get Metric by existing ID
   Given I have an existing metric ID
   When I search metric using GET operarion
   Then I should retrieve an OK
   And I validate GET reponse with MongoDB
   
-  #NEGATIVE
-  @NEGATIVE
-  Scenario: 3 Get Sprint by non-exist ID
+  #NEGATIVEGET
+  @NEGATIVEGET
+  Scenario: 3 Get Metric by non-exist ID
   Given I have a non exist ID
   When I search metric using GET operarion
   Then I should retrieve a not found
-  And I validate error structure
+  And I validate error structure message "Metric does not exist"
   
-  #NEGATIVE
-  @NEGATIVE
-  Scenario: 4 Get Sprint by ID as letters
+  #NEGATIVEGET
+  @NEGATIVEGET
+  Scenario: 4 Get Metric by ID as letters
   Given I have a metric ID as letters
   When I search metric using GET operarion
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "Metric id has incorrect format"
   
-  #NEGATIVE
-  @NEGATIVE
-  Scenario: 5 Get Sprint by ID as numeric
+  #NEGATIVEGET
+  @NEGATIVEGET
+  Scenario: 5 Get Metric by ID as numeric
   Given I have a metric ID as numeric
   When I search metric using GET operarion
   Then I should retrieve a bad request
-  And I validate error structure
+  And I validate error structure message "Metric id has incorrect format"
   
-  #NEGATIVE
-  @NEGATIVE
-  Scenario: 6 Get Sprint by ID as over length
+  #NEGATIVEGET
+  @NEGATIVEGET
+  Scenario: 6 Get Metric by ID as over length
   Given I have a metric ID as over length
   When I search metric using GET operarion
   Then I should retrieve a bad request
-  And I validate error structure
-
-  
+  And I validate error structure message "Metric id has incorrect format"
+	
