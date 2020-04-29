@@ -58,7 +58,7 @@ Feature: In order to contine testing MetricsCollection API
   And I have an existing evaluator
   And I have an existing evaluated
   And I have type as string
-  And I have a date as null
+  And I have a date as null to update
   And I have an existing sprint
   And I have a Boolean fields as false
   And I have a comment fields

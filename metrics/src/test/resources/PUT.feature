@@ -373,7 +373,7 @@ Feature: In order to test MetricsCollection API
   And I have an existing evaluator
   And I have an existing evaluated
   And I have type as string
-  And I have a date as past date
+  And I have a date as past date to update
   And I have an existing sprint
   And I have a Boolean fields as false
   And I have a comment fields
@@ -387,7 +387,7 @@ Feature: In order to test MetricsCollection API
   And I have an existing evaluator
   And I have an existing evaluated
   And I have type as string
-  And I have a date as future date
+  And I have a date as future date to uptade
   And I have an existing sprint
   And I have a Boolean fields as false
   And I have a comment fields

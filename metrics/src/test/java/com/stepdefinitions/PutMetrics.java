@@ -229,24 +229,26 @@ JSONObject object = new JSONObject();
 		variable.object.put("date", variable.date );
 	}
 	
+	/*
 	@Given("I have a date as past date")
 	public void i_have_a_date_as_past_date() {
 		variable.date = LocalDate.now().minusDays((int)(Math.random()*(350-30+1)+30));
 		variable.object.put("date", variable.date );
 	}
-
+/*
 	@Given("I have a date as future date")
 	public void i_have_a_date_as_future_date() {
 		variable.date = LocalDate.now().plusDays((int)(Math.random()*(350-30+1)+30));
 		variable.object.put("date", variable.date );
 	}
-	
+	*/
+	/*
 	@Given("I have a date as null")
 	public void i_have_a_date_as_null() {
 		variable.date = null;
 		variable.object.put("date", variable.date );
 	}
-
+*/
 	@Given("I have a date as empty")
 	public void i_have_a_date_as_empty() {
 		variable.date = null;
