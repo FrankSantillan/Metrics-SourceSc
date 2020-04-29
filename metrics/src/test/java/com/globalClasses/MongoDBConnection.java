@@ -806,4 +806,42 @@ public class MongoDBConnection {
         return randomResult;
     }
 
+
+     //New method Espindola
+     public String executeRandomSelectIDUser(String collection, String field) {
+    	String randomResult = "";
+    	System.out.println("------------field" + field);
+    	System.out.println("------------collection" + collection);
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        //MongoCollection<Document> coll = mDataBase.getCollection(this.collection);
+        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+                
+        for(Document dbObject : output) {
+            if(dbObject.containsKey(field)) {
+                randomResult = dbObject.get(field).toString();
+                System.out.println(dbObject);
+            }
+        }
+        return randomResult;
+    }
+    
+    public JSONArray executeQueryRandom(String collection, String field, String filter) {
+        JSONObject json = new JSONObject();
+        JSONArray resultJ = new JSONArray();
+        
+        System.out.println("------------field" + field);
+        System.out.println("------------collection" + collection);
+        
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        
+        System.out.println("----- for start  " );
+        System.out.println("_______________________________________________");
+       try (MongoCursor<Document> cursor = coll.find(Filters.and(Filters.eq(field, filter), Filters.eq("status", "Active"))).iterator()){
+    	   while(cursor.hasNext()) {
+    		   resultJ.put(json = new JSONObject(cursor.next().toJson()));
+    	    }
+       }
+            return resultJ;
+    }
+
 }

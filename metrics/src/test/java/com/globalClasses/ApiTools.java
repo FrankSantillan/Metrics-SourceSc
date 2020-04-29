@@ -174,6 +174,33 @@ public class ApiTools {
 		}
 		return response;
 	}
+
+
+	public ResponseEntity<String> retrieveDelete(String apiPath ) {
+		//		SSLCertificateValidation.disable();
+				try {
+		//			headers.add("Authorization", null);
+		
+					headers.setContentType(contentType);
+					restTemplate.setErrorHandler(new ResponseErrorHandler() {
+						
+		
+						public boolean hasError(ClientHttpResponse responseDelete) throws IOException {
+							return false;
+						}
+						
+		
+						public void handleError(ClientHttpResponse responseDelete) throws IOException {
+						}
+					});
+					HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+					response = restTemplate.exchange(hostName + apiPath, HttpMethod.DELETE, requestEntity, String.class);
+				} catch (HttpClientErrorException e) {
+					System.out.println(e.getMessage());
+					response = new ResponseEntity<String>(((HttpStatusCodeException) e).getResponseBodyAsString(),((HttpStatusCodeException) e).getStatusCode());
+				}
+				return response;
+			}
 	
 	
 }
