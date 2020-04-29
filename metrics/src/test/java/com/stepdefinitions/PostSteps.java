@@ -1,4 +1,4 @@
-package com.test.stepdefinitions;
+package com.stepdefinitions;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,13 +13,13 @@ import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.test.globalclasses.BasicSecurityUtil;
-import com.test.globalclasses.RandomTools;
-import com.test.globalclasses.ApiPaths;
-import com.test.globalclasses.ApiTools;
-import com.test.globalclasses.MongoDBUtils;
-import com.test.globalclasses.MyTools;
-import com.test.globalclasses.BrowserDriver;
+import com.globalClasses.BasicSecurityUtil;
+import com.globalClasses.RandomTools;
+import com.globalClasses.ApiPaths;
+import com.globalClasses.ApiTools;
+import com.globalClasses.MongoDBUtils;
+import com.globalClasses.MyTools;
+import com.globalClasses.BrowserDriver;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
@@ -698,9 +698,9 @@ public class PostSteps {
 		base.response = base.ServiceApi.POSTMethod(base.apiResource, base.requestBody);
 		base.responseBody = base.response.getBody();
 		base.method = "POST";
-		MyTools.resource(ApiPaths.METRICS);
-        MyTools.statusCode(String.valueOf(statusCodeRetrieved));
-        MyTools.responseBody(base.responseBody);
+		//MyTools.resource(ApiPaths.METRICS);
+        //MyTools.statusCode(String.valueOf(statusCodeRetrieved));
+       // MyTools.responseBody(base.responseBody);
 	}
 
 	@Then("The API should indicate that the resource was Created")

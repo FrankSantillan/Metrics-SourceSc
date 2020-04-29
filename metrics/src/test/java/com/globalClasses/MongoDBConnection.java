@@ -50,6 +50,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
@@ -837,6 +838,60 @@ public class MongoDBConnection {
         System.out.println("----- for start  " );
         System.out.println("_______________________________________________");
        try (MongoCursor<Document> cursor = coll.find(Filters.and(Filters.eq(field, filter), Filters.eq("status", "Active"))).iterator()){
+    	   while(cursor.hasNext()) {
+    		   resultJ.put(json = new JSONObject(cursor.next().toJson()));
+    	    }
+       }
+            return resultJ;
+    }
+    
+    
+    public String executeRandomSelectID(String collection, String field) {
+    	String randomResult = "";
+    	System.out.println("------------field" + field);
+    	System.out.println("------------collection" + collection);
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        //MongoCollection<Document> coll = mDataBase.getCollection(this.collection);
+        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+                
+        for(Document dbObject : output) {
+            if(dbObject.containsKey(field)) {
+                randomResult = dbObject.get(field).toString();
+            }
+        }
+        return randomResult;
+    }
+    
+    
+    public JSONArray executeQuerySelect(String collection, String field, String filter) {
+        JSONObject json = new JSONObject();
+        JSONArray resultJ = new JSONArray();
+        
+        System.out.println("------------field" + field);
+        System.out.println("------------collection" + collection);
+        
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+        
+        System.out.println("----- for start  " );
+        System.out.println("_______________________________________________");
+       try (MongoCursor<Document> cursor = coll.find(Filters.eq(field, filter)).iterator()){
+    	   while(cursor.hasNext()) {
+    		   resultJ.put(json = new JSONObject(cursor.next().toJson()));
+    		   System.out.println(resultJ);
+    	    }
+       }
+            return resultJ;
+    }
+    
+    
+    public JSONArray executeQuerySelectID(String collection, String field, String filter) {
+        JSONObject json = new JSONObject();
+        JSONArray resultJ = new JSONArray();
+
+        MongoCollection<Document> coll = mDataBase.getCollection(collection);
+        AggregateIterable<Document> output = coll.aggregate(Arrays.asList(Aggregates.sample(1)));
+       try (MongoCursor<Document> cursor = coll.find(Filters.eq(field, new ObjectId(filter))).iterator()){
     	   while(cursor.hasNext()) {
     		   resultJ.put(json = new JSONObject(cursor.next().toJson()));
     	    }

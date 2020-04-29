@@ -1,4 +1,4 @@
-package com.test.globalclasses;
+package com.globalClasses;
 
 import java.io.File;
 import java.io.IOException;

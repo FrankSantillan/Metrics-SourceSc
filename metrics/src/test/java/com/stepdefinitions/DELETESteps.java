@@ -1,4 +1,4 @@
-package com.test.stepdefinitions;
+package com.stepdefinitions;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 
-import com.test.globalclasses.BasicSecurityUtil;
-import com.test.globalclasses.RandomTools;
-import com.test.globalclasses.ApiPaths;
-import com.test.globalclasses.ApiTools;
-import com.test.globalclasses.MongoDBUtils;
-import com.test.globalclasses.BrowserDriver;
+import com.globalClasses.BasicSecurityUtil;
+import com.globalClasses.RandomTools;
+import com.globalClasses.ApiPaths;
+import com.globalClasses.ApiTools;
+import com.globalClasses.MongoDBUtils;
+import com.globalClasses.BrowserDriver;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;

@@ -1,4 +1,4 @@
-package com.test.globalclasses;
+package com.globalClasses;
 
 import org.springframework.http.ResponseEntity;;
 

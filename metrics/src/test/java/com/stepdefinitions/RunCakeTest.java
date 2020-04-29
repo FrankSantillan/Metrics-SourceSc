@@ -1,4 +1,4 @@
-package com.test.stepdefinitions;
+package com.stepdefinitions;
 
 import org.junit.runner.RunWith;
 

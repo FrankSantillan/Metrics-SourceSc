@@ -307,4 +307,51 @@ public class MongoDBUtils {
 	       }
 	       return randomSelect;
 	   }
+	   
+	   //espindola
+	   
+	   public static String executeRandomSelectID(String env, String mDataBase, String collection, String field) {
+           MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+           String randomSelect = "";
+           try {
+               randomSelect = db.executeRandomSelectID(collection, field);
+           } catch(Exception var9) {
+               var9.printStackTrace();
+           } finally {
+               db.close();
+           }
+           return randomSelect;
+       }
+	   
+	   
+	   public static JSONArray executeMyQuery(String env, String mDataBase, String collection, String field, String filter) {
+           MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+           JSONArray querySelect = new JSONArray();
+           try {
+               System.out.println("-----step 1");
+               querySelect = db.executeQuerySelect(collection, field, filter);
+           } catch(Exception var9) {
+               var9.printStackTrace();
+           } finally {
+               db.close();
+           }
+           System.out.println("return result");
+           return querySelect;
+       }
+	   
+	   public static JSONArray executeMyQueryID(String env, String mDataBase, String collection, String field, String filter) {
+           MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+           JSONArray querySelect = new JSONArray();
+           try {
+               querySelect = db.executeQuerySelectID(collection, field, filter);
+           } catch(Exception var9) {
+               var9.printStackTrace();
+           } finally {
+               db.close();
+           }
+           System.out.println("return result");
+           return querySelect;
+       }
+	   
+	   
 }
