@@ -100,7 +100,7 @@ public class errorStructure{
 		   }
 		   
 		   
-		   assert error.getString("path").indexOf("/sprints/"+variable.param)>-1 :"\n\t Path incorrect formart"+ "\n\t Path expected: /sprints/" + variable.param +
+		   assert error.getString("path").indexOf("/metrics/"+variable.param)>-1 :"\n\t Path incorrect formart"+ "\n\t Path expected: /metrics/" + variable.param +
 		   "\n\t Path retrieved: " + error.getString("path") ;
 		   
 		   

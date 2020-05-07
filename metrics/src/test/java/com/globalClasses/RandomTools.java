@@ -80,7 +80,7 @@ public class RandomTools{
 		String specialCharacters = "";
 		ArrayList<String> list = new ArrayList<String>();
 		
-		list.add("#");		list.add("$");		list.add("%");		list.add("&");		list.add("/");
+		list.add("#");		list.add("$");		list.add("$");		list.add("&");		list.add("/");
 		list.add("(");		list.add(")");		list.add("=");		list.add("?");		list.add("+");
 		list.add("*");		list.add("{");		list.add("[");		list.add("}");		list.add("]");
 		list.add("-");		list.add("_");		list.add(":");		list.add(";");		list.add(".");
