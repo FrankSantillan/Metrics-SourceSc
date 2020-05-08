@@ -439,9 +439,8 @@ Feature: Post Method
     And I have an retroactive comments
     And I prepare the resource
 	  When I create a new Metric with Post method
-	  Then The status error should be Bad Request
+	  Then The API should indicate that the resource was Created
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The valid characters to type field include A-z" from the API
 	  
   @postN3
   Scenario: Create a new metric with type as special characters
@@ -462,9 +461,8 @@ Feature: Post Method
     And I have an retroactive comments
     And I prepare the resource
 	  When I create a new Metric with Post method
-	  Then The status error should be Bad Request
+	  Then The API should indicate that the resource was Created
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The valid characters to type field include A-z" from the API
 	  
   @postN5 @sprint5
   Scenario: Create a new metric with type as null
@@ -487,9 +485,9 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field type that is required" from the API
+	  And verify the error message "Type field is required" from the API
 
-  @postN6 @sprint5
+  @postN6 @sprint5 @sprint7
   Scenario: Create a new metric with type as empty field
     Given I have an Evaluator ID
     And I have an Evaluated ID
@@ -510,7 +508,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field type should not be null" from the API
+	  And verify the error message "Type that is required" from the API
 	  
   @postN7 @sprint5
   Scenario: Create a new metric with date as incorrect format
@@ -533,7 +531,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The given date has incorrect format" from the API
+	  And verify the error message "Date has incorrect format" from the API
 	  
   @postN8
   Scenario: Create a new metric with date as past date
@@ -556,7 +554,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The given date is out of range" from the API
+	  And verify the error message "Date has incorrect format" from the API
 	  
   @postN9
   Scenario: Create a new metric with date as future date
@@ -579,7 +577,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The given date is out of range" from the API
+	  And verify the error message "Date has incorrect format" from the API
 	  
   @postP21 @sprint5
   Scenario: Create a new metric with date as null
@@ -813,7 +811,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The object metric is required" from the API
+	  And verify the error message "Object metric is required" from the API
 	  
 	@postN22 @sprint5
   Scenario: Create a new metric without evalueted_id
@@ -836,7 +834,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field evaluated_id is required" from the API
+	  And verify the error message "Evaluated_id is required" from the API
 	  
 	@postN23
   Scenario: Create a new metric without evaluator_id
@@ -859,7 +857,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field evaluator_id is required" from the API
+	  And verify the error message "Evaluator_id is required" from the API
 	  
 	@postN24 @sprint5
   Scenario: Create a new metric without sprint_id
@@ -882,7 +880,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field sprint_id is required" from the API
+	  And verify the error message "Sprint_id is required" from the API
 
 	@postN26
   Scenario: Create a new metric with unexistent evalueted_id
@@ -905,7 +903,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should return a CONFLICT
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The evaluated_id that has given does not exist" from the API
+	  And verify the error message "Evaluated id not exist" from the API
 	  
 	@postN27
   Scenario: Create a new metric with sprint_id as incorrect format
@@ -928,7 +926,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The given ID has incorrect format" from the API
+	  And verify the error message "Sprint ID has incorrect format" from the API
 	  
 	@postN28
   Scenario: Create a new metric with evaluated_id as incorrect format
@@ -951,7 +949,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The given ID has incorrect format" from the API
+	  And verify the error message "Evaluated ID has incorrect format" from the API
 	  
 	@postN29
   Scenario: Create a new metric with evaluator_id as incorrect format
@@ -974,7 +972,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The given ID has incorrect format" from the API
+	  And verify the error message "Evaluator ID has incorrect format" from the API
 	  
 	@postN30 @sprint5
   Scenario: Create a new metric with blockers as null
@@ -996,7 +994,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The object blockers is required" from the API
+	  And verify the error message "Object blockers is required" from the API
 	  
 	@postN31 @sprint5
   Scenario: Create a new metric with proactive as null
@@ -1016,7 +1014,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The object proactive is required" from the API
+	  And verify the error message "Object proactive is required" from the API
 	  
 	@postN32 @sprint5
   Scenario: Create a new metric with retroactive as null
@@ -1038,7 +1036,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The object retroactive is required" from the API
+	  And verify the error message "Object retroactive is required" from the API
 	  
 @postN33
   Scenario: Create a new metric with blocked as alphanumeric 
@@ -1061,7 +1059,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field blocked only admits 'true' or 'false'" from the API
+	  And verify the error message "Blocked only admits 'true' or 'false'" from the API
 	  
 @postN34
   Scenario: Create a new metric with blocked as cappital letter
@@ -1084,7 +1082,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field blocked only admits 'true' or 'false'" from the API
+	  And verify the error message "Blocked only admits 'true' or 'false'" from the API
 	  
 @postN35 @sprint5
   Scenario: Create a new metric with attendance as null
@@ -1107,7 +1105,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field attendance is required" from the API
+	  And verify the error message "Attendance is required" from the API
 	  
 @postN36
   Scenario: Create a new metric with attendance as cappital letter
@@ -1130,7 +1128,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field attendance only admits 'true' or 'false'" from the API
+	  And verify the error message "Attendance only admits 'true' or 'false'" from the API
 	  
 @postN37 @sprint5
   Scenario: Create a new metric with blocked as null
@@ -1153,7 +1151,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field blocked is required" from the API
+	  And verify the error message "Blocked is required" from the API
 	  
 @postN38
   Scenario: Create a new netric with looked_for_help as cappital letter
@@ -1176,7 +1174,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field looked_for_help only admits 'true' or 'false'" from the API
+	  And verify the error message "Looked_for_help only admits 'true' or 'false'" from the API
 
 @postN39 @sprint5
   Scenario: Create a new netric with looked_for_help as null
@@ -1199,7 +1197,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field looked_for_help is required" from the API
+	  And verify the error message "Looked_for_help is required" from the API
 	  
 @postN40
   Scenario: Create a new metric with provided_help as cappital letter
@@ -1222,7 +1220,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field provided_help only admits 'true' or 'false'" from the API
+	  And verify the error message "Provided_help only admits 'true' or 'false'" from the API
 	  
 @postN41 @sprint5
   Scenario: Create a new metric with provided_help as null
@@ -1245,7 +1243,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field provided_help is required" from the API
+	  And verify the error message "Provided_help is required" from the API
 	  
 @postN42
   Scenario: Create a new metric with worked_ahead as cappital letter
@@ -1268,7 +1266,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field worked_ahead only admits 'true' or 'false'" from the API
+	  And verify the error message "Field worked_ahead only admits 'true' or 'false'" from the API
 	  
 @postN43 @sprint5
   Scenario: Create a new metric with worked_ahead as null
@@ -1291,7 +1289,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field worked_ahead is required" from the API
+	  And verify the error message "Field worked_ahead is required" from the API
 	  
 @postN44
   Scenario: Create a new metric with shared_resources as upper case
@@ -1314,7 +1312,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field shared_resources only admits 'true' or 'false'" from the API	  
+	  And verify the error message "Shared_resources only admits 'true' or 'false'" from the API	  
 
 @postN45 @sprint5 @test
   Scenario: Create a new metric with shared_resources as null
@@ -1337,7 +1335,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field shared_resources is required" from the API
+	  And verify the error message "Shared_resources is required" from the API
 	  
 @postN46
   Scenario: Create a new metric with carried_over as upper case
@@ -1360,7 +1358,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field carried_over only admits 'true' or 'false'" from the API
+	  And verify the error message "Carried_over only admits 'true' or 'false'" from the API
 	  
 @postN47 @sprint5
   Scenario: Create a new metric with carried_over as null
@@ -1383,7 +1381,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field carried_over is required" from the API
+	  And verify the error message "Carried_over is required" from the API
 	  
 @postN48
   Scenario: Create a new metric with delayed_looking_help as upper case
@@ -1406,7 +1404,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field delayed_looking_help_over only admits 'true' or 'false'" from the API
+	  And verify the error message "Delayed_looking_help_over only admits 'true' or 'false'" from the API
 	  
 @postN49 @sprint5
   Scenario: Create a new metric with delayed_looking_help as null
@@ -1429,7 +1427,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The field delayed_looking_help_over is required" from the API
+	  And verify the error message "Delayed_looking_help_over is required" from the API
 	  
 @postN50
   Scenario: Create a new metric with unexistent sprint_id
@@ -1452,9 +1450,9 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should return a CONFLICT
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The sprint_id that has given does not exist" from the API
+	  And verify the error message "Sprint id not found" from the API
 	  
-	@postN51 @sprint5
+	@postN51 @sprint5 @sprint7
   Scenario: Create a new metric with Evaluator_id and Evaluated_id as same ID.
     Given I have an Evaluator ID
     And I have an Evaluated ID as same as evaluator
@@ -1473,7 +1471,7 @@ Feature: Post Method
     And I have an retroactive comments
     And I prepare the resource
 	  When I create a new Metric with Post method
-	  Then The status error should be Bad Request
+	  Then The status error should return a CONFLICT
 	  And I verify in the database if the Metric exist
-	  And verify the error message "The evaluated_id and evaluator_id that have given must not be equals" from the API 
+	  And verify the error message "Evaluated_id and evaluator_id that have given must not be equals" from the API 
 	  

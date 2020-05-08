@@ -825,6 +825,23 @@ public class MongoDBConnection {
         }
         return randomResult;
     }
+     public JSONArray executeQueryRandomSelectID(String collection, String field, String filter) {
+         JSONObject json = new JSONObject();
+         JSONArray resultJ = new JSONArray();
+         System.out.println("------------field" + field);
+         System.out.println("------------collection" + collection);
+         
+         MongoCollection<Document> coll = mDataBase.getCollection(collection);
+         
+         System.out.println("----- for start  " );
+         System.out.println("_______________________________________________");
+        try (MongoCursor<Document> cursor = coll.find(Filters.eq(field, filter)).iterator()) {
+     	   while(cursor.hasNext()) {
+     		  resultJ.put(json = new JSONObject(cursor.next().toJson()));
+     	    }
+        }
+             return resultJ;
+     }
     
     public JSONArray executeQueryRandom(String collection, String field, String filter) {
         JSONObject json = new JSONObject();

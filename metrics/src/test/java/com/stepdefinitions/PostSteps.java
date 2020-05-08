@@ -58,15 +58,13 @@ public class PostSteps {
 	@Given("I have an Evaluator ID")
 	public void i_have_an_Evaluator_ID() {
 		// Write code here that turns the phrase above into concrete actions
-		//evaluator_id = MongoDBUtils.executeRandomSelectIDUser("TEST", "InternHome", "users", "role", "mentor");
-		evaluator_id = "5ea712ece6cd3109e8bc71c9";
+		evaluator_id = MongoDBUtils.executeRandomSelectIDUser("TEST", "InternHome", "users", "role", "mentor");
 	}
 
 	@Given("I have an Evaluated ID")
 	public void i_have_an_Evaluated_ID() {
 		// Write code here that turns the phrase above into concrete actions
-		//evaluated_id = MongoDBUtils.executeRandomSelectIDUser("TEST", "InternHome", "users", "role", "intern");
-		evaluated_id = "5ea7125ce6cd3109e8bc71c6";
+		evaluated_id = MongoDBUtils.executeRandomSelectIDUser("TEST", "InternHome", "users", "role", "intern");
 	}
 	
 	@Given("I have an Evaluator ID as null")
@@ -327,7 +325,7 @@ public class PostSteps {
 	@Given("I have an type as empty field")
 	public void i_have_an_type_as_empty_field() {
 		// Write code here that turns the phrase above into concrete actions
-		type = "  ";
+		type = "";
 	}
 
 	@Given("I have a date as incorrect format")
@@ -339,7 +337,7 @@ public class PostSteps {
 	@Given("I have a date as past date")
 	public void i_have_a_date_as_past_date() {
 		// Write code here that turns the phrase above into concrete actions
-		date = "1001-09-23";
+		date = "2001-09-12";
 	}
 
 	@Given("I have a date as future date")

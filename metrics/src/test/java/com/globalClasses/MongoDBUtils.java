@@ -353,5 +353,22 @@ public class MongoDBUtils {
            return querySelect;
        }
 	   
+	   public static String executeRandomSelectIDUser(String env, String mDataBase, String collection, String field, String filter) {
+           MongoDBConnection db = new MongoDBConnection(env, mDataBase);
+           JSONObject json = new JSONObject();
+           JSONArray querySelect = new JSONArray();
+           String dat = "";
+           try {
+               querySelect = db.executeQueryRandomSelectID(collection, field, filter);
+               json = querySelect.getJSONObject(0);
+               dat = json.getJSONObject("_id").get("$oid").toString();
+           } catch(Exception var9) {
+               var9.printStackTrace();
+           } finally {
+               db.close();
+           }
+           System.out.println("return result");
+           return dat;
+       }
 	   
 }
