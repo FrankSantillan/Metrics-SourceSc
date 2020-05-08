@@ -2,8 +2,7 @@
 Feature: In order to test MetricsCollection API
 	I goint to run negative scenarios to verify standarized error message
 
-  
- 
+
   # E V A L U A T O R 
   
   #NEGATIVE
@@ -18,7 +17,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a conflict
-  And I validate error structure message "evaluator_id does not exist"
+  And I validate error structure message "evaluator_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -32,7 +31,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "evaluator_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -46,7 +45,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "evaluator_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -60,7 +59,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "evaluator_id not exist"
   
   # E V A L U A T E D-----------------------------------------------------------------------
   #NEGATIVE
@@ -75,7 +74,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a conflict
-  And I validate error structure message "evaluates_id does not exist"
+  And I validate error structure message "evaluated_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -89,7 +88,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "evaluated_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -103,7 +102,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "evaluated_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -117,7 +116,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "evaluated_id not exist"
   
   # S P R I N
   
@@ -133,7 +132,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a conflict
-  And I validate error structure message "sprint_id does not exist"
+  And I validate error structure message "sprint_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -147,7 +146,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "sprint_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -161,7 +160,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "sprint_id not exist"
   
   #NEGATIVE
   @NEGATIVE
@@ -175,7 +174,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "sprint_id not exist"
   
   
   
@@ -192,7 +191,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "attendance only admits 'true' or 'false'"
+  And I validate error structure message "Attendance only admits 'true' or 'false'"
   
   #NEGATIVE
   @NEGATIVE
@@ -207,7 +206,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "carried_over only admits 'true' or 'false'"
+  And I validate error structure message "Carried_over only admits 'true' or 'false'"
   
   #NEGATIVE
   @NEGATIVE
@@ -222,7 +221,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "blocked only admits 'true' or 'false'"
+  And I validate error structure message "Blocked only admits 'true' or 'false'"
   
   #NEGATIVE
   @NEGATIVE
@@ -237,7 +236,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "looked_for_help only admits 'true' or 'false'"
+  And I validate error structure message "Looked_for_help only admits 'true' or 'false'"
   
   #NEGATIVE
   @NEGATIVE
@@ -252,7 +251,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "provided_help only admits 'true' or 'false'"
+  And I validate error structure message "Provided_help only admits 'true' or 'false'"
   
   #NEGATIVE
   @NEGATIVE
@@ -282,7 +281,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "shared_resources only admits 'true' or 'false'"
+  And I validate error structure message "Shared_resources only admits 'true' or 'false'"
   
   #NEGATIVE
   @NEGATIVE
@@ -297,7 +296,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "delayed_looking_help only admits 'true' or 'false'"
+  And I validate error structure message "Delayed_looking_help only admits 'true' or 'false'"
   
   #NEGATIVE
   @NEGATIVE
@@ -311,7 +310,7 @@ Feature: In order to test MetricsCollection API
 	And I have a comment fields
 	When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "evaluator_id is required"
+  And I validate error structure message "valuator_id is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -326,7 +325,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "evaluated_id is required"
+  And I validate error structure message "valuated_id is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -341,7 +340,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "type is required"
+  And I validate error structure message "Type is required"
   And I validate create a new with mongoDB
 
 
@@ -358,7 +357,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "sprint_id is required"
+  And I validate error structure message "Sprint_id is required"
   And I validate create a new with mongoDB
 	
 	# bools and comments
@@ -376,7 +375,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "attendance is required"
+  And I validate error structure message "Attendance is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -392,7 +391,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "blocked is required"
+  And I validate error structure message "Blocked is required"
   And I validate create a new with mongoDB
 
 
@@ -409,7 +408,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "looked_for_help is required"
+  And I validate error structure message "Looked_for_help is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -425,7 +424,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "provided_help is required"
+  And I validate error structure message "Provided_help is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -441,7 +440,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "worked_ahead is required"
+  And I validate error structure message "Worked_ahead is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -457,7 +456,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "shared_resources is required"
+  And I validate error structure message "Shared_resources is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -473,7 +472,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "carried_over is required"
+  And I validate error structure message "Carried_over is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -489,7 +488,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "delayed_looking_help is required"
+  And I validate error structure message "Delayed_looking_help is required"
   And I validate create a new with mongoDB
 
 
@@ -507,7 +506,7 @@ Feature: In order to test MetricsCollection API
 	And I have a comment fields
 	When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "evaluator_id is required"
+  And I validate error structure message "Evaluator_id is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -522,7 +521,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "evaluated_id is required"
+  And I validate error structure message "Evaluated_id is required"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -537,7 +536,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "type is required"
+  And I validate error structure message "Type is required"
   And I validate create a new with mongoDB
 
 
@@ -553,7 +552,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "sprint_id is required"
+  And I validate error structure message "Sprint_id is required"
   And I validate create a new with mongoDB
 	
 	# bools and comments
@@ -571,7 +570,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "attendance only admits 'true' or 'false'"
+  And I validate error structure message "Attendance only admits 'true' or 'false'"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -587,7 +586,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "blocked only admits 'true' or 'false'"
+  And I validate error structure message "Blocked only admits 'true' or 'false'"
   And I validate create a new with mongoDB
 
 
@@ -605,7 +604,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "looked_for_help only admits 'true' or 'false'"
+  And I validate error structure message "Looked_for_help only admits 'true' or 'false'"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -621,7 +620,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "provided_help only admits 'true' or 'false'"
+  And I validate error structure message "Provided_help only admits 'true' or 'false'"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -637,7 +636,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "worked_ahead only admits 'true' or 'false'"
+  And I validate error structure message "Worked_ahead only admits 'true' or 'false'"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -653,7 +652,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "shared_resources only admits 'true' or 'false'"
+  And I validate error structure message "Shared_resources only admits 'true' or 'false'"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -669,7 +668,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "carried_over only admits 'true' or 'false'"
+  And I validate error structure message "Carried_over only admits 'true' or 'false'"
   And I validate create a new with mongoDB
 
   #NEGATIVE
@@ -685,7 +684,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "delayed_looking_help only admits 'true' or 'false'"
+  And I validate error structure message "Delayed_looking_help only admits 'true' or 'false'"
   And I validate create a new with mongoDB
 
   #-------------------------------------------------------------------------------------------
@@ -701,7 +700,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a conflict
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "Evaluated_id and evaluator_id that have given must not be equals"
   And I validate create a new with mongoDB
     
   #NEGATIVE
@@ -716,7 +715,7 @@ Feature: In order to test MetricsCollection API
   And I have a comment fields
   When I create a new metric using POST operatation
   Then I should retrieve a bad request
-  And I validate error structure message "date has incorrect format"
+  And I validate error structure message "D	ate has incorrect format"
   And I validate create a new with mongoDB
   
   #-------------------------------------------------------------------------------------------------
@@ -729,7 +728,7 @@ Feature: In order to test MetricsCollection API
   Given I have a non exist ID
   When I delete metric using DELETE operarion
   Then I should retrieve a not found
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "Metric Id not found"
   
   #NEGATIVE
   @NEGATIVEDEL
@@ -737,7 +736,7 @@ Feature: In order to test MetricsCollection API
   Given I have a metric ID as letters
   When I delete metric using DELETE operarion
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "Metric Id has incorrect format"
   
   #NEGATIVE
   @NEGATIVEDEL
@@ -745,7 +744,7 @@ Feature: In order to test MetricsCollection API
   Given I have a metric ID as numeric
   When I delete metric using DELETE operarion
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "Metric Id has incorrect format"
   
   #NEGATIVE
   @NEGATIVEDEL
@@ -753,7 +752,7 @@ Feature: In order to test MetricsCollection API
   Given I have a metric ID as over length
   When I delete metric using DELETE operarion
   Then I should retrieve a bad request
-  And I validate error structure message "ERRORMESSAGE"
+  And I validate error structure message "Metric Id has incorrect format"
   
   
   

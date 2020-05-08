@@ -13,7 +13,7 @@ public class MyTools{
 	    FileWriter fw = null;
 
 	    try {
-	        String data = string + "\n";
+	        String data = "/" + string + "\n";
 	        File file = new File("resource.txt");
 	        if (!file.exists()) {
 	            file.createNewFile();

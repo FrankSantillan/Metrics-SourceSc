@@ -43,8 +43,9 @@ public class Get {
 	
 	@Given("I have an existing metric ID")
 	public void i_have_an_existing_metric_ID() {
+		
 		variable.param = MongoDBUtils.executeRandomSelect("TEST", "InternHome", "metrics", "_id");
-		//variable.param = "5e94c03d2b23de190a809651";
+
 	}
 	
 	@Given("I have a non exist ID")

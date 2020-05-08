@@ -133,7 +133,7 @@ JSONObject object = new JSONObject();
 		@Given("I have an existing sprint")
 		public void i_have_an_existing_sprint() {
 		    //variable.sprintID = MongoDBUtils.executeRandomSelect("TEST", "InternHome", "sprints", "_id");
-			variable.sprintID = "5e8ede5edfc3ca01e1b1cd92";
+			variable.sprintID = "5eb2ceee31b2c17f17991e08";
 			variable.object.put("sprint_id", variable.sprintID);
 			
 		}
@@ -249,6 +249,26 @@ JSONObject object = new JSONObject();
 		variable.object.put("date", variable.date );
 	}
 */
+	@Given("I have a date as past date to update")
+	public void i_have_a_date_as_past_date_to_update() {
+		variable.date = LocalDate.now().minusDays((int)(Math.random()*(350-30+1)+30));
+		variable.object.put("date", variable.date );
+	}
+
+
+
+	@Given("I have a date as future date to uptade")
+	public void i_have_a_date_as_future_date_to_uptade() {
+		variable.date = LocalDate.now().plusDays((int)(Math.random()*(350-30+1)+30));
+		variable.object.put("date", variable.date );
+	}
+	@Given("I have a date as null to update")
+	public void i_have_a_date_as_null_to_update() {
+		variable.date = null;
+		variable.object.put("date", variable.date );
+	}
+
+
 	@Given("I have a date as empty")
 	public void i_have_a_date_as_empty() {
 		variable.date = null;
