@@ -1,4 +1,4 @@
-@GETMETHOD
+@GETMETHOD @regression
 Feature: In order to test MetricsCollection API
 	I need type my scenarios to GET method
 

@@ -1,4 +1,4 @@
-@del
+@del @regression
 Feature: DELETE Method metric collection api test
 
 	Background: 

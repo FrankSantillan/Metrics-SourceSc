@@ -1,5 +1,4 @@
-
-@post
+@post @regression
 Feature: Post Method
 
   @postP1 @pos
@@ -1404,7 +1403,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "Delayed_looking_help_over only admits 'true' or 'false'" from the API
+	  And verify the error message "Delayed_looking_help only admits 'true' or 'false'" from the API
 	  
 @postN49 @sprint5
   Scenario: Create a new metric with delayed_looking_help as null
@@ -1427,7 +1426,7 @@ Feature: Post Method
 	  When I create a new Metric with Post method
 	  Then The status error should be Bad Request
 	  And I verify in the database if the Metric exist
-	  And verify the error message "Delayed_looking_help_over is required" from the API
+	  And verify the error message "Delayed_looking_helpr is required" from the API
 	  
 @postN50
   Scenario: Create a new metric with unexistent sprint_id

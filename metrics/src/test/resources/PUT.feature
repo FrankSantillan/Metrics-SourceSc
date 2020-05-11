@@ -1,4 +1,4 @@
-@PUTMETHOD
+@PUTMETHOD @regression
 Feature: In order to test MetricsCollection API
 	I going to update metrics collection using  the PUT method for this API
 	
