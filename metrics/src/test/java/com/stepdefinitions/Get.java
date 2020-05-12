@@ -1,126 +1,138 @@
 package com.stepdefinitions;
 
-import java.util.Date;
-
 import org.json.JSONObject;
-
-import org.json.JSONObject;
-
 import com.globalClasses.ApiPaths;
 import com.globalClasses.ApiTools;
 import com.globalClasses.BasicSecurityUtil;
 import com.globalClasses.MongoDBUtils;
+import com.globalClasses.MyTools;
 import com.globalClasses.RandomTools;
+import com.globalClasses.globalVariables;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class Get {
-	/*
-	private BasicSecurityUtil base;
-	String IDString;
-	long IDLong;
-	int statusCodeExpected, statusCodeRetrieved;
-	boolean boolCheck = false;
-	boolean boolRetrieved = false;
 	
-	public Get(BasicSecurityUtil base) {
+	private BasicSecurityUtil base;
+	private globalVariables variable;
+	
+	public Get(BasicSecurityUtil base , globalVariables variable) {
 		this.base = base;
+		
+		this.variable = variable;
 	}
 	
 	RandomTools random = new RandomTools();
+	MyTools myTools = new MyTools();
+
+	int  statusCodeRetrieved;
+
+	boolean boolRetrieved = false;
+	JSONObject jsonObject;
 	
-	@Given("I need see all sprints")
-	public void i_need_see_all_sprints() {
-		IDString = "";
-	}
-
-	@Given("I have an existing ID")
-	public void i_have_an_existing_ID() {
-		IDString = MongoDBUtils.executeRandomSelect("TEST", "InternHome", "sprints", "_id");
-	}
-
-	@Given("I have a non-existen ID")
-	public void i_have_a_non_existen_ID() {
-		IDString = MongoDBUtils.executeRandomSelect("TEST", "InternHome", "sprints", "_id");
-		IDString = IDString.replaceAll("[0-5]", "7");
-	}
-
-	@Given("I have a ID as letters")
-	public void i_have_a_ID_as_letters() {
-		IDString = random.randomFirstName();		
+	
+	
+	
+	
+	@Given("I need see all metrics collection")
+	public void i_need_see_all_metrics_collection() {
+		variable.param = "";
 	}
 	
-	@Given("I have a ID as over length")
-	public void i_have_a_ID_as_over_length() {
-		IDString = random.randomFirstNameOL();
+	@Given("I have an existing metric ID")
+	public void i_have_an_existing_metric_ID() {
+		
+		variable.param = MongoDBUtils.executeRandomSelect("TEST", "InternHome", "metrics", "_id");
+
+	}
+	
+	@Given("I have a non exist ID")
+	public void i_have_a_non_exist_ID() {
+		variable.param = "5e9486cbe5303d599f55f833";
+	}
+	
+	
+	@Given("I have a metric ID as letters")
+	public void i_have_a_metric_ID_as_letters() {
+		variable.param = random.idLetters();
 	}
 
-	@Given("I have a ID as numeric")
-	public void i_have_a_ID_as_numeric() {
-		IDLong = random.generateNumberPhoneRandomlong();
+	@Given("I have a metric ID as numeric")
+	public void i_have_a_metric_ID_as_numeric() {
+		variable.param = random.idNumber();
 	}
 
-	@Given("I have a ID as special characters")
-	public void i_have_a_ID_as_special_characters() {
-		IDString  = random.randomSpecialCharacteres();
+	@Given("I have a metric ID as over length")
+	public void i_have_a_metric_ID_as_over_length() {
+		variable.param = "5e948739e5303d599f55f83e5e948739e5303d599f55f83e";
 	}
+
+	@Given("I have a metric ID as null")
+	public void i_have_a_metric_ID_as_null() {
+		variable.param = null;
+	}
+
+	@Given("I have a metric ID as empty")
+	public void i_have_a_metric_ID_as_empty() {
+		variable.param = "";
+	}
+
+
 	
 	// W H E N - - S T E P S 
-
-	@When("I send GET request to API")
-	public void i_send_GET_request_to_API() {
-		
-		base.apiResource = ApiPaths.MONGOCRUD + "/"+IDString;
+	
+	@When("I search metric using GET operarion")
+	public void i_search_metric_using_GET_operarion() {
+		base.apiResource = ApiPaths.METRICS + variable.param;
 		base.ServiceApi = new ApiTools();
         base.response = base.ServiceApi.retrieve(base.apiResource);
         base.responseBody = base.response.getBody();
         base.method = "GET";
         statusCodeRetrieved = base.response.getStatusCodeValue();
-        //System.out.println(base.responseBody);
+        
+        myTools.resource( ApiPaths.METRICS + variable.param  );
+        myTools.statusCode(String.valueOf(statusCodeRetrieved));
+        myTools.responseBody(base.responseBody);
+        
+        if(!variable.param.equals("")) {
+        	 jsonObject = new JSONObject(base.responseBody);
+        }
 	}
 	
-	@When("I send GET request to API as numeric")
-	public void i_send_GET_request_to_API_as_numeric() {
-		base.apiResource = ApiPaths.MONGOCRUD + "/"+IDLong;
+	@When("I delete metric using DELETE operarion")
+	public void i_delete_metric_using_DELETE_operarion() {
+		base.apiResource = ApiPaths.METRICS + variable.param ;
 		base.ServiceApi = new ApiTools();
-        base.response = base.ServiceApi.retrieve(base.apiResource);
+		base.response = base.ServiceApi.retrieve(base.apiResource);
         base.responseBody = base.response.getBody();
-        base.method = "GET";
-        statusCodeRetrieved = base.response.getStatusCodeValue();
-        //System.out.println(base.responseBody);
+	    base.method = "DELETE";
+	    statusCodeRetrieved = base.response.getStatusCodeValue();
+	    myTools.resource( ApiPaths.METRICS + variable.param );
+        myTools.statusCode(String.valueOf(statusCodeRetrieved));
+        myTools.responseBody(base.responseBody);
 	}
 
-	
-	//  T H E N  - - S T E P S
-	@Then("I retrieve status code and it should be {int} OK")
-	public void i_retrieve_status_code_and_it_should_be_OK(Integer statusCode) {
-		statusCodeExpected = statusCode;
-		//if(statusCodeExpected == statusCodeRetrieved) {
-		//	boolCheck = true;
-		//}
-		assert statusCodeRetrieved == statusCodeExpected ;
+
+
+
+	@Then("I validate GET reponse with MongoDB")
+	public void i_validate_GET_reponse_with_MongoDB() {
+
+		switch(statusCodeRetrieved) {
+		case 200:
+			boolRetrieved = MongoDBUtils.ExecuteGet("TEST", "InternHome", "metrics", variable.param, jsonObject );
+			assert boolRetrieved == true ;break;
+			
+		case 404:
+			boolRetrieved = MongoDBUtils.ExecuteGet("TEST", "InternHome", "metrics", variable.param, jsonObject );
+			
+			assert boolRetrieved == false ;break;
+			
+		}
 		
+
 	}
 
-	@Then("I retrieve status code and it should be {int} Not Found")
-	public void i_retrieve_status_code_and_it_should_be_Not_Found(Integer statusCode) {
-		statusCodeExpected = statusCode;
-
-		assert statusCodeRetrieved == statusCodeExpected ;
-	}
-
-	@Then("I retrieve status code and it should be {int} Bad request")
-	public void i_retrieve_status_code_and_it_should_be_Bad_request(Integer statusCode) {
-		statusCodeExpected = statusCode;
-
-		assert statusCodeRetrieved == statusCodeExpected ;
-	}
-
-	
-	@Then("I validate reponse with MongoDB")
-	public void i_validate_reponse_with_MongoDB() {
-	}
-*/
 }
