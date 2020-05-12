@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -26,6 +28,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+
 public class PostSteps {
 	private BasicSecurityUtil base;
 	long firstNameInt = 0, lastNameInt = 0, phoneInt = 0, idInt, numeric = 0;
@@ -46,6 +49,8 @@ public class PostSteps {
 	JSONArray jsonResult = new JSONArray();
 	String test;
 	String date;
+	LocalDate targetDate;
+
 
 	RandomTools random = new RandomTools();
 
@@ -329,19 +334,25 @@ public class PostSteps {
 	@Given("I have a date as incorrect format")
 	public void i_have_a_date_as_incorrect_format() {
 		// Write code here that turns the phrase above into concrete actions
-		date = "09-3010-23";
+		date = String.valueOf(targetDate.getYear() + "-" + targetDate.getDayOfMonth() + "-" + targetDate.getMonthValue()); 
 	}
 
 	@Given("I have a date as past date")
 	public void i_have_a_date_as_past_date() {
 		// Write code here that turns the phrase above into concrete actions
-		date = "2001-09-12";
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate currentDate = LocalDate.now();
+		date = LocalDate.parse(currentDate.format(dtf)).minusMonths(10).toString();
+
 	}
 
 	@Given("I have a date as future date")
 	public void i_have_a_date_as_future_date() {
 		// Write code here that turns the phrase above into concrete actions
-		date = "3010-09-23";
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate currentDate = LocalDate.now();
+		date = LocalDate.parse(currentDate.format(dtf)).plusYears(50).toString();
+
 	}
 
 	@Given("I have a date as null")
