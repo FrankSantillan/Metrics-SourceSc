@@ -11,7 +11,6 @@ import com.globalClasses.RandomTools;
 import com.globalClasses.ApiPaths;
 import com.globalClasses.ApiTools;
 import com.globalClasses.MongoDBUtils;
-import com.globalClasses.BrowserDriver;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
@@ -21,7 +20,6 @@ import io.cucumber.java.en.When;
 
 public class DELETESteps {
 	private BasicSecurityUtil base;
-	BrowserDriver myBrowser = new BrowserDriver();
 	long firstNameInt = 0, lastNameInt = 0, phoneInt = 0, idInt;
 	int statusCodeExpected, statusCodeRetrieved;
 	boolean bool = false;
@@ -41,7 +39,6 @@ public class DELETESteps {
 	public void i_have_a_metric_to_Delete() {
 	    // Write code here that turns the phrase above into concrete actions
 		 test = MongoDBUtils.executeRandomSelectID("TEST", "InternHome", "metrics", id);
-		 System.out.println(test + " 777777777777777777777");
 	}
 	
 	@Given("I have an metric ID")
